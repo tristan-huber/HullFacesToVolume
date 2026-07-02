@@ -19,6 +19,151 @@
       ]
     },
     {
+      "atomType": "Code",
+      "x": 0.43489583333333337,
+      "y": 0.2885714285714286,
+      "uniqueID": "id-21693",
+      "ioValues": [
+        {
+          "name": "faces",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "thickness",
+          "ioValue": 1
+        }
+      ],
+      "interpreterVersion": 1,
+      "code": "function run(faces: Assembly, thickness: number = 1) {\n  const resultLeafs = []\n  faces.onLeafs((leaf) => {\n    if (leaf.geometry instanceof replicad.Face) {\n      console.log(\"is face\")\n      const result = faceThicken(leaf.geometry, thickness)\n      if (result == undefined) {\n        leaf.tags.push(\"FAILED_OFFSET\")\n        return leaf;\n      }\n      leaf.geometry = result;\n      return leaf;\n    } else if (leaf.is3D()) {\n      const newLeafs = []\n      for (const face of leaf.geometry.faces) {\n        const res = faceThicken(face, thickness)\n        if (res == undefined) {\n          resultLeafs.push(new Assembly({\n            ...leaf,\n            tags: [...leaf.tags, \"FAILED_OFFSET\"]\n          }))\n        } else {\n          const r = new Assembly(leaf)\n          r.geometry = res;\n          resultLeafs.push(r);\n        }\n      }\n      return leaf;\n    } else {\n      throw Error(\"input must be faces or other 3dshape.\")\n    }\n  });\n  return resultLeafs;\n}\n\nfunction faceThicken(face: replicad.Face, thickness: number) {\n  if (thickness != 0) {\n    try {\n      const offset = replicad.makeOffset(face, thickness);\n      const w1 = replicad.assembleWire(face.edges)\n      const w2 = replicad.assembleWire(offset.edges)\n      const boundary = replicad.loft([w2, w1], {}, true)\n      return replicad.makeSolid([face, offset, boundary])\n    } catch (e) {\n      console.warn(\"failed to thicken a face\")\n      console.error(e)\n      return undefined;\n    }\n  }\n  console.log('thickness was zero')\n  return face\n}\n",
+      "compiledCode": "\"use strict\";\nfunction run(faces, thickness = 1) {\n    const resultLeafs = [];\n    faces.onLeafs((leaf) => {\n        if (leaf.geometry instanceof replicad.Face) {\n            console.log(\"is face\");\n            const result = faceThicken(leaf.geometry, thickness);\n            if (result == undefined) {\n                leaf.tags.push(\"FAILED_OFFSET\");\n                return leaf;\n            }\n            leaf.geometry = result;\n            return leaf;\n        }\n        else if (leaf.is3D()) {\n            const newLeafs = [];\n            for (const face of leaf.geometry.faces) {\n                const res = faceThicken(face, thickness);\n                if (res == undefined) {\n                    resultLeafs.push(new Assembly({\n                        ...leaf,\n                        tags: [...leaf.tags, \"FAILED_OFFSET\"]\n                    }));\n                }\n                else {\n                    const r = new Assembly(leaf);\n                    r.geometry = res;\n                    resultLeafs.push(r);\n                }\n            }\n            return leaf;\n        }\n        else {\n            throw Error(\"input must be faces or other 3dshape.\");\n        }\n    });\n    return resultLeafs;\n}\nfunction faceThicken(face, thickness) {\n    if (thickness != 0) {\n        try {\n            const offset = replicad.makeOffset(face, thickness);\n            const w1 = replicad.assembleWire(face.edges);\n            const w2 = replicad.assembleWire(offset.edges);\n            const boundary = replicad.loft([w2, w1], {}, true);\n            return replicad.makeSolid([face, offset, boundary]);\n        }\n        catch (e) {\n            console.warn(\"failed to thicken a face\");\n            console.error(e);\n            return undefined;\n        }\n    }\n    console.log('thickness was zero');\n    return face;\n}\n"
+    },
+    {
+      "atomType": "ExtractTag",
+      "x": 0.5774739583333334,
+      "y": 0.66,
+      "uniqueID": "id-21703",
+      "name": "Extract hullfaces",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ],
+      "tag": "hullfaces",
+      "tagIndex": 0
+    },
+    {
+      "atomType": "GitHubMolecule",
+      "x": 0.2584635416666667,
+      "y": 0.7114285714285714,
+      "uniqueID": "id-21711",
+      "name": "util.SelectFace",
+      "ioValues": [
+        {
+          "name": "shape",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "index",
+          "ioValue": 0
+        }
+      ],
+      "topLevel": false,
+      "allAtoms": [
+        {
+          "atomType": "Output",
+          "x": 0.98,
+          "y": 0.5,
+          "uniqueID": "id-21707",
+          "ioValues": [
+            {
+              "name": "number or geometry",
+              "ioValue": "__GEOMETRY_INPUT__"
+            }
+          ]
+        },
+        {
+          "atomType": "Input",
+          "x": 0.0231,
+          "y": 0.14,
+          "uniqueID": "id-21708",
+          "name": "shape",
+          "type": "geometry"
+        },
+        {
+          "atomType": "Input",
+          "x": 0.0231,
+          "y": 0.22400000000000003,
+          "uniqueID": "id-21709",
+          "name": "index"
+        },
+        {
+          "atomType": "Code",
+          "x": 0.38183593749999994,
+          "y": 0.48750000000000004,
+          "uniqueID": "id-21710",
+          "ioValues": [
+            {
+              "name": "shape",
+              "ioValue": "__GEOMETRY_INPUT__"
+            },
+            {
+              "name": "faceIndex",
+              "ioValue": 0
+            }
+          ],
+          "interpreterVersion": 1,
+          "code": "\nfunction run(\n  shape: Assembly,\n  faceIndex: number = 0\n) {\n  let result = undefined;\n  shape.onLeafs((leaf) => {\n    if (leaf.is3D()) {\n      const f = leaf.geometry.faces\n      if (f.length > faceIndex && result == undefined) {\n        result = f[faceIndex]\n      } else {\n        faceIndex = faceIndex - f.length\n      }\n      return leaf;\n    }\n  })\n  return result;\n}\n",
+          "compiledCode": "\"use strict\";\nfunction run(shape, faceIndex = 0) {\n    let result = undefined;\n    shape.onLeafs((leaf) => {\n        if (leaf.is3D()) {\n            const f = leaf.geometry.faces;\n            if (f.length > faceIndex && result == undefined) {\n                result = f[faceIndex];\n            }\n            else {\n                faceIndex = faceIndex - f.length;\n            }\n            return leaf;\n        }\n    });\n    return result;\n}\n"
+        }
+      ],
+      "allConnectors": [
+        {
+          "ap2Name": "shape",
+          "ap1ID": "id-21708",
+          "ap2ID": "id-21710"
+        },
+        {
+          "ap2Name": "faceIndex",
+          "ap1ID": "id-21709",
+          "ap2ID": "id-21710"
+        },
+        {
+          "ap2Name": "number or geometry",
+          "ap1ID": "id-21710",
+          "ap2ID": "id-21707"
+        }
+      ],
+      "parentRepo": {
+        "lastFoundGit": "2026-07-02T18:23:39.160Z",
+        "privateRepo": false,
+        "repoName": "util.SelectFace",
+        "dateCreated": "2026-06-11T23:43:58Z",
+        "likes": 0,
+        "readMe": "https://raw.githubusercontent.com/tristan-huber/util.SelectFace/master/README.md?sanitize=true",
+        "yyyy": 2026,
+        "topMoleculeID": "id-1",
+        "githubMoleculesUsed": [],
+        "html_url": "https://github.com/tristan-huber/util.SelectFace",
+        "topics": [
+          "abundance-tool"
+        ],
+        "parentRepo": null,
+        "forks": 0,
+        "dateModified": "739799",
+        "ranking": 3,
+        "searchField": "util.selectface tristan-huber gets a face by index from an assembly abundance-tool",
+        "owner": "tristan-huber",
+        "description": "Gets a face by index from an assembly",
+        "contentURL": "https://raw.githubusercontent.com/tristan-huber/util.SelectFace/master/project.abundance?sanitize=true",
+        "svgURL": "https://raw.githubusercontent.com/tristan-huber/util.SelectFace/master/project.svg?sanitize=true",
+        "isLocal": false
+      },
+      "unitsKey": "Unitless",
+      "fileTypeVersion": 1,
+      "lastReloadedFromGithubAt": 1783033868232
+    },
+    {
       "atomType": "GitHubMolecule",
       "x": 0.10807291666666667,
       "y": 0.4971428571428571,
@@ -32,8 +177,7 @@
         },
         {
           "name": "HullLengthInches",
-          "ioValue": 144,
-          "currentEquation": "144"
+          "ioValue": 144
         },
         {
           "name": "HullThickness",
@@ -756,154 +900,14 @@
       "unitsKey": "Inches",
       "fileTypeVersion": 1,
       "lastReloadedFromGithubAt": 1783032897879
-    },
-    {
-      "atomType": "Code",
-      "x": 0.41861979166666663,
-      "y": 0.30857142857142855,
-      "uniqueID": "id-21693",
-      "ioValues": [
-        {
-          "name": "thickness",
-          "ioValue": 1
-        },
-        {
-          "name": "faces",
-          "ioValue": "__GEOMETRY_INPUT__"
-        }
-      ],
-      "interpreterVersion": 1,
-      "code": "function run(faces: Assembly, thickness: number = 1) {\n  return faces.onLeafs((leaf) => {\n    if (leaf.geometry instanceof replicad.Face) {\n      console.log(\"is face\")\n      const result = faceThicken(leaf.geometry, thickness)\n      if (result == undefined) {\n        leaf.tags.push(\"FAILED_OFFSET\")\n        return leaf;\n      }\n      leaf.geometry = result;\n      return leaf;\n    } else if (leaf.is3D()) {\n      const newLeafs = []\n      for (const face of leaf.geometry.faces) {\n        const res = faceThicken(face, thickness)\n        if (res == undefined) {\n          newLeafs.push(new Assembly({\n            ...leaf,\n            tags: [...leaf.tags, \"FAILED_OFFSET\"]\n          }))\n        } else {\n          const r = new Assembly(leaf)\n          r.geometry = res;\n          newLeafs.push(r);\n        }\n      }\n      if (newLeafs.length == 1) {\n        console.log(\"newleafs is length 1, returning sole leaf\")\n        return newLeafs[0]\n      }\n      return new Assembly({geometry: newLeafs})\n    } else {\n      throw Error(\"input must be faces or other 3dshape.\")\n    }\n  });\n}\n\nfunction faceThicken(face: replicad.Face, thickness: number) {\n  if (thickness != 0) {\n    try {\n      const offset = replicad.makeOffset(face, thickness);\n      const w1 = replicad.assembleWire(face.edges)\n      const w2 = replicad.assembleWire(offset.edges)\n      const boundary = replicad.loft([w2, w1], {}, true)\n      return replicad.makeSolid([face, offset, boundary])\n    } catch (e) {\n      console.warn(\"failed to thicken a face\")\n      console.error(e)\n      return undefined;\n    }\n  }\n  console.log('thickness was zero')\n  return face\n}\n",
-      "compiledCode": "\"use strict\";\nfunction run(faces, thickness = 1) {\n    return faces.onLeafs((leaf) => {\n        if (leaf.geometry instanceof replicad.Face) {\n            console.log(\"is face\");\n            const result = faceThicken(leaf.geometry, thickness);\n            if (result == undefined) {\n                leaf.tags.push(\"FAILED_OFFSET\");\n                return leaf;\n            }\n            leaf.geometry = result;\n            return leaf;\n        }\n        else if (leaf.is3D()) {\n            const newLeafs = [];\n            for (const face of leaf.geometry.faces) {\n                const res = faceThicken(face, thickness);\n                if (res == undefined) {\n                    newLeafs.push(new Assembly({\n                        ...leaf,\n                        tags: [...leaf.tags, \"FAILED_OFFSET\"]\n                    }));\n                }\n                else {\n                    const r = new Assembly(leaf);\n                    r.geometry = res;\n                    newLeafs.push(r);\n                }\n            }\n            if (newLeafs.length == 1) {\n                console.log(\"newleafs is length 1, returning sole leaf\");\n                return newLeafs[0];\n            }\n            return new Assembly({ geometry: newLeafs });\n        }\n        else {\n            throw Error(\"input must be faces or other 3dshape.\");\n        }\n    });\n}\nfunction faceThicken(face, thickness) {\n    if (thickness != 0) {\n        try {\n            const offset = replicad.makeOffset(face, thickness);\n            const w1 = replicad.assembleWire(face.edges);\n            const w2 = replicad.assembleWire(offset.edges);\n            const boundary = replicad.loft([w2, w1], {}, true);\n            return replicad.makeSolid([face, offset, boundary]);\n        }\n        catch (e) {\n            console.warn(\"failed to thicken a face\");\n            console.error(e);\n            return undefined;\n        }\n    }\n    console.log('thickness was zero');\n    return face;\n}\n"
-    },
-    {
-      "atomType": "ExtractTag",
-      "x": 0.5774739583333334,
-      "y": 0.66,
-      "uniqueID": "id-21703",
-      "name": "Extract hullfaces",
-      "ioValues": [
-        {
-          "name": "geometry",
-          "ioValue": "__GEOMETRY_INPUT__"
-        }
-      ],
-      "tag": "hullfaces",
-      "tagIndex": 0
-    },
-    {
-      "atomType": "GitHubMolecule",
-      "x": 0.2584635416666667,
-      "y": 0.7114285714285714,
-      "uniqueID": "id-21711",
-      "name": "util.SelectFace",
-      "ioValues": [
-        {
-          "name": "shape",
-          "ioValue": "__GEOMETRY_INPUT__"
-        },
-        {
-          "name": "index",
-          "ioValue": 0
-        }
-      ],
-      "topLevel": false,
-      "allAtoms": [
-        {
-          "atomType": "Output",
-          "x": 0.98,
-          "y": 0.5,
-          "uniqueID": "id-21707",
-          "ioValues": [
-            {
-              "name": "number or geometry",
-              "ioValue": "__GEOMETRY_INPUT__"
-            }
-          ]
-        },
-        {
-          "atomType": "Input",
-          "x": 0.0231,
-          "y": 0.14,
-          "uniqueID": "id-21708",
-          "name": "shape",
-          "type": "geometry"
-        },
-        {
-          "atomType": "Input",
-          "x": 0.0231,
-          "y": 0.22400000000000003,
-          "uniqueID": "id-21709",
-          "name": "index"
-        },
-        {
-          "atomType": "Code",
-          "x": 0.38183593749999994,
-          "y": 0.48750000000000004,
-          "uniqueID": "id-21710",
-          "ioValues": [
-            {
-              "name": "shape",
-              "ioValue": "__GEOMETRY_INPUT__"
-            },
-            {
-              "name": "faceIndex",
-              "ioValue": 0
-            }
-          ],
-          "interpreterVersion": 1,
-          "code": "\nfunction run(\n  shape: Assembly,\n  faceIndex: number = 0\n) {\n  let result = undefined;\n  shape.onLeafs((leaf) => {\n    if (leaf.is3D()) {\n      const f = leaf.geometry.faces\n      if (f.length > faceIndex && result == undefined) {\n        result = f[faceIndex]\n      } else {\n        faceIndex = faceIndex - f.length\n      }\n      return leaf;\n    }\n  })\n  return result;\n}\n",
-          "compiledCode": "\"use strict\";\nfunction run(shape, faceIndex = 0) {\n    let result = undefined;\n    shape.onLeafs((leaf) => {\n        if (leaf.is3D()) {\n            const f = leaf.geometry.faces;\n            if (f.length > faceIndex && result == undefined) {\n                result = f[faceIndex];\n            }\n            else {\n                faceIndex = faceIndex - f.length;\n            }\n            return leaf;\n        }\n    });\n    return result;\n}\n"
-        }
-      ],
-      "allConnectors": [
-        {
-          "ap2Name": "shape",
-          "ap1ID": "id-21708",
-          "ap2ID": "id-21710"
-        },
-        {
-          "ap2Name": "faceIndex",
-          "ap1ID": "id-21709",
-          "ap2ID": "id-21710"
-        },
-        {
-          "ap2Name": "number or geometry",
-          "ap1ID": "id-21710",
-          "ap2ID": "id-21707"
-        }
-      ],
-      "parentRepo": {
-        "lastFoundGit": "2026-07-02T18:23:39.160Z",
-        "privateRepo": false,
-        "repoName": "util.SelectFace",
-        "dateCreated": "2026-06-11T23:43:58Z",
-        "likes": 0,
-        "readMe": "https://raw.githubusercontent.com/tristan-huber/util.SelectFace/master/README.md?sanitize=true",
-        "yyyy": 2026,
-        "topMoleculeID": "id-1",
-        "githubMoleculesUsed": [],
-        "html_url": "https://github.com/tristan-huber/util.SelectFace",
-        "topics": [
-          "abundance-tool"
-        ],
-        "parentRepo": null,
-        "forks": 0,
-        "dateModified": "739799",
-        "ranking": 3,
-        "searchField": "util.selectface tristan-huber gets a face by index from an assembly abundance-tool",
-        "owner": "tristan-huber",
-        "description": "Gets a face by index from an assembly",
-        "contentURL": "https://raw.githubusercontent.com/tristan-huber/util.SelectFace/master/project.abundance?sanitize=true",
-        "svgURL": "https://raw.githubusercontent.com/tristan-huber/util.SelectFace/master/project.svg?sanitize=true",
-        "isLocal": false
-      },
-      "unitsKey": "Unitless",
-      "fileTypeVersion": 1,
-      "lastReloadedFromGithubAt": 1783033868232
     }
   ],
   "allConnectors": [
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-21693",
+      "ap2ID": "id-21703"
+    },
     {
       "ap2Name": "shape",
       "ap1ID": "id-21617",
@@ -913,11 +917,6 @@
       "ap2Name": "faces",
       "ap1ID": "id-21617",
       "ap2ID": "id-21693"
-    },
-    {
-      "ap2Name": "geometry",
-      "ap1ID": "id-21693",
-      "ap2ID": "id-21703"
     }
   ],
   "unitsKey": "Inches",
