@@ -900,6 +900,20 @@
       "unitsKey": "Inches",
       "fileTypeVersion": 1,
       "lastReloadedFromGithubAt": 1783032897879
+    },
+    {
+      "atomType": "ExtractTag",
+      "x": 0.2513020833333333,
+      "y": 0.22857142857142856,
+      "uniqueID": "id-21806",
+      "name": "Extract Tag",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ],
+      "tagIndex": 0
     }
   ],
   "allConnectors": [
@@ -917,6 +931,11 @@
       "ap2Name": "faces",
       "ap1ID": "id-21617",
       "ap2ID": "id-21693"
+    },
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-21617",
+      "ap2ID": "id-21806"
     }
   ],
   "unitsKey": "Inches",
