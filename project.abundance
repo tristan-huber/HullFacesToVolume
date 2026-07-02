@@ -1116,13 +1116,14 @@
     },
     {
       "atomType": "Code",
-      "x": 0.623046875,
-      "y": 0.5171428571428571,
+      "x": 0.5696614583333334,
+      "y": 0.4714285714285715,
       "uniqueID": "id-22013",
       "ioValues": [
         {
           "name": "thickness",
-          "ioValue": 5
+          "ioValue": -0.25,
+          "currentEquation": "-0.25"
         },
         {
           "name": "faces",
@@ -1132,6 +1133,21 @@
       "interpreterVersion": 1,
       "code": "function run(faces: Assembly, thickness: number = 1) {\n  const resultLeafs = []\n  faces.onLeafs((leaf) => {\n    if (leaf.geometry instanceof replicad.Face) {\n      console.log(\"is face\")\n      const result = faceThicken(leaf.geometry, thickness)\n      if (result == undefined) {\n        leaf.tags.push(\"FAILED_OFFSET\")\n        return leaf;\n      }\n      leaf.geometry = result;\n      return leaf;\n    } else if (leaf.is3D()) {\n      for (const face of leaf.geometry.faces) {\n        const res = faceThicken(face, thickness)\n        if (res == undefined) {\n          resultLeafs.push(new Assembly({\n            ...leaf,\n            tags: [...leaf.tags, \"FAILED_OFFSET\"]\n          }))\n        } else {\n          const r = new Assembly(leaf)\n          r.geometry = res;\n          resultLeafs.push(r);\n        }\n      }\n      return leaf;\n    } else {\n      throw Error(\"input must be faces or other 3dshape.\")\n    }\n  });\n  return resultLeafs;\n}\n\nfunction faceThicken(face: replicad.Face, thickness: number) {\n  if (thickness != 0) {\n    try {\n      return replicad.makeOffset(face, thickness);\n    } catch (e) {\n      console.warn(\"failed to thicken a face\")\n      console.error(e)\n      return undefined;\n    }\n  }\n  console.log('thickness was zero')\n  return face\n}",
       "compiledCode": "\"use strict\";\nfunction run(faces, thickness = 1) {\n    const resultLeafs = [];\n    faces.onLeafs((leaf) => {\n        if (leaf.geometry instanceof replicad.Face) {\n            console.log(\"is face\");\n            const result = faceThicken(leaf.geometry, thickness);\n            if (result == undefined) {\n                leaf.tags.push(\"FAILED_OFFSET\");\n                return leaf;\n            }\n            leaf.geometry = result;\n            return leaf;\n        }\n        else if (leaf.is3D()) {\n            for (const face of leaf.geometry.faces) {\n                const res = faceThicken(face, thickness);\n                if (res == undefined) {\n                    resultLeafs.push(new Assembly({\n                        ...leaf,\n                        tags: [...leaf.tags, \"FAILED_OFFSET\"]\n                    }));\n                }\n                else {\n                    const r = new Assembly(leaf);\n                    r.geometry = res;\n                    resultLeafs.push(r);\n                }\n            }\n            return leaf;\n        }\n        else {\n            throw Error(\"input must be faces or other 3dshape.\");\n        }\n    });\n    return resultLeafs;\n}\nfunction faceThicken(face, thickness) {\n    if (thickness != 0) {\n        try {\n            return replicad.makeOffset(face, thickness);\n        }\n        catch (e) {\n            console.warn(\"failed to thicken a face\");\n            console.error(e);\n            return undefined;\n        }\n    }\n    console.log('thickness was zero');\n    return face;\n}\n"
+    },
+    {
+      "atomType": "Code",
+      "x": 0.7044270833333334,
+      "y": 0.4114285714285715,
+      "uniqueID": "id-22023",
+      "ioValues": [
+        {
+          "name": "faces",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ],
+      "interpreterVersion": 1,
+      "code": "function run(faces: Assembly) {\n  const faceList: replicad.Face[] = []\n  faces.onLeafs((leaf) => {\n    if (leaf.geometry instanceof replicad.Face) {\n      faceList.push(leaf.geometry)\n      return leaf;\n    } else if (leaf.is3D()) {\n      for (const face of leaf.geometry.faces) {\n        faceList.push(face);\n      }\n      return leaf;\n    } else {\n      throw Error(\"input must be faces or other 3dshape.\")\n    }\n  });\n  return replicad.makeSolid(faceList);\n}",
+      "compiledCode": "\"use strict\";\nfunction run(faces) {\n    const faceList = [];\n    faces.onLeafs((leaf) => {\n        if (leaf.geometry instanceof replicad.Face) {\n            faceList.push(leaf.geometry);\n            return leaf;\n        }\n        else if (leaf.is3D()) {\n            for (const face of leaf.geometry.faces) {\n                faceList.push(face);\n            }\n            return leaf;\n        }\n        else {\n            throw Error(\"input must be faces or other 3dshape.\");\n        }\n    });\n    return replicad.makeSolid(faceList);\n}\n"
     }
   ],
   "allConnectors": [
@@ -1166,6 +1182,11 @@
       "ap2ID": "id-21806"
     },
     {
+      "ap2Name": "faces",
+      "ap1ID": "id-21842",
+      "ap2ID": "id-22013"
+    },
+    {
       "ap2Name": "geometry",
       "ap1ID": "id-21920",
       "ap2ID": "id-21995"
@@ -1197,8 +1218,8 @@
     },
     {
       "ap2Name": "faces",
-      "ap1ID": "id-22005",
-      "ap2ID": "id-22013"
+      "ap1ID": "id-22013",
+      "ap2ID": "id-22023"
     }
   ],
   "unitsKey": "Inches",
