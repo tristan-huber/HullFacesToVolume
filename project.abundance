@@ -1261,17 +1261,29 @@
       "uniqueID": "id-22229",
       "ioValues": [
         {
-          "name": "edgeFrom",
-          "ioValue": "__GEOMETRY_INPUT__"
-        },
-        {
-          "name": "nearestTo",
+          "name": "wires",
           "ioValue": "__GEOMETRY_INPUT__"
         }
       ],
       "interpreterVersion": 1,
-      "code": "\nfunction run(\n  edgeFrom: Assembly,\n  nearestTo: Assembly\n) {\n  let best: replicad.Edge;\n  let bestDist = Infinity;\n  const target: replicad.Vector = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1)\n  edgeFrom.onLeafs((leaf) => {\n    if (!(leaf.geometry instanceof replicad.Drawing)) {\n      for (const edge of leaf.geometry.edges) {\n        const dist = edge.pointAt(.5).add(target).Length;\n        if (dist < bestDist || best == undefined) {\n          console.log(\"new best dist: \", dist)\n          bestDist = dist\n          best = edge;\n        }\n      }\n      return leaf;\n    }\n  })\n  console.log(best)\n  return replicad.assembleWire([best]);\n}\n\nfunction getBBoxCenter(foo: Assembly) {\n  let bbox: replicad.BoundingBox = undefined;\n  foo.onLeafs((leaf) => {\n    if (bbox == undefined) {\n      bbox = leaf.geometry.boundingBox;\n    } else {\n      bbox.add(leaf.geometry.boundingBox)\n    }\n  })\n  return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/",
-      "compiledCode": "\"use strict\";\nfunction run(edgeFrom, nearestTo) {\n    let best;\n    let bestDist = Infinity;\n    const target = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1);\n    edgeFrom.onLeafs((leaf) => {\n        if (!(leaf.geometry instanceof replicad.Drawing)) {\n            for (const edge of leaf.geometry.edges) {\n                const dist = edge.pointAt(.5).add(target).Length;\n                if (dist < bestDist || best == undefined) {\n                    console.log(\"new best dist: \", dist);\n                    bestDist = dist;\n                    best = edge;\n                }\n            }\n            return leaf;\n        }\n    });\n    console.log(best);\n    return replicad.assembleWire([best]);\n}\nfunction getBBoxCenter(foo) {\n    let bbox = undefined;\n    foo.onLeafs((leaf) => {\n        if (bbox == undefined) {\n            bbox = leaf.geometry.boundingBox;\n        }\n        else {\n            bbox.add(leaf.geometry.boundingBox);\n        }\n    });\n    return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/ \n"
+      "code": "\nfunction run(\n  wires: Assembly\n) {\n  const wireList = []\n  wires.onLeafs((leaf) => {\n    wireList.push(leaf.geometry)\n    return leaf;\n  })\n  return replicad.makeNonPlanarFace(replicad.assembleWire(wireList))\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/",
+      "compiledCode": "\"use strict\";\nfunction run(wires) {\n    const wireList = [];\n    wires.onLeafs((leaf) => {\n        wireList.push(leaf.geometry);\n        return leaf;\n    });\n    return replicad.makeNonPlanarFace(replicad.assembleWire(wireList));\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/ \n"
+    },
+    {
+      "atomType": "Assembly",
+      "x": 0.83203125,
+      "y": 0.5114285714285715,
+      "uniqueID": "id-22234",
+      "ioValues": [
+        {
+          "name": "Shape 1",
+          "ioValue": null
+        },
+        {
+          "name": "Shape 2",
+          "ioValue": null
+        }
+      ]
     }
   ],
   "allConnectors": [
@@ -1336,6 +1348,11 @@
       "ap2ID": "id-22009"
     },
     {
+      "ap2Name": "Shape 2",
+      "ap1ID": "id-22077",
+      "ap2ID": "id-22234"
+    },
+    {
       "ap2Name": "geometry",
       "ap1ID": "id-22088",
       "ap2ID": "id-22097"
@@ -1344,11 +1361,6 @@
       "ap2Name": "nearestTo",
       "ap1ID": "id-22091",
       "ap2ID": "id-22077"
-    },
-    {
-      "ap2Name": "nearestTo",
-      "ap1ID": "id-22091",
-      "ap2ID": "id-22229"
     },
     {
       "ap2Name": "geometry",
@@ -1396,14 +1408,19 @@
       "ap2ID": "id-22209"
     },
     {
-      "ap2Name": "edgeFrom",
-      "ap1ID": "id-22133",
-      "ap2ID": "id-22229"
+      "ap2Name": "Shape 1",
+      "ap1ID": "id-22209",
+      "ap2ID": "id-22234"
     },
     {
       "ap2Name": "nearestTo",
       "ap1ID": "id-22223",
       "ap2ID": "id-22209"
+    },
+    {
+      "ap2Name": "wires",
+      "ap1ID": "id-22234",
+      "ap2ID": "id-22229"
     }
   ],
   "unitsKey": "Inches",
