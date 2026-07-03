@@ -55,8 +55,8 @@
     },
     {
       "atomType": "GitHubMolecule",
-      "x": 0.2584635416666667,
-      "y": 0.7114285714285714,
+      "x": 0.138671875,
+      "y": 0.8171428571428572,
       "uniqueID": "id-21711",
       "name": "util.SelectFace",
       "ioValues": [
@@ -310,8 +310,8 @@
     },
     {
       "atomType": "Equation",
-      "x": 0.392578125,
-      "y": 0.7942857142857144,
+      "x": 0.2858072916666667,
+      "y": 0.9314285714285714,
       "uniqueID": "id-22001",
       "name": "x / 2",
       "ioValues": [
@@ -357,8 +357,8 @@
     },
     {
       "atomType": "Code",
-      "x": 0.5755208333333334,
-      "y": 0.37999999999999995,
+      "x": 0.23567708333333334,
+      "y": 0.6799999999999999,
       "uniqueID": "id-22013",
       "ioValues": [
         {
@@ -377,8 +377,8 @@
     },
     {
       "atomType": "Code",
-      "x": 0.7584635416666666,
-      "y": 0.2571428571428572,
+      "x": 0.20572916666666666,
+      "y": 0.5485714285714286,
       "uniqueID": "id-22023",
       "ioValues": [
         {
@@ -392,8 +392,8 @@
     },
     {
       "atomType": "Code",
-      "x": 0.8177083333333334,
-      "y": 0.5285714285714286,
+      "x": 0.7584635416666666,
+      "y": 0.5885714285714286,
       "uniqueID": "id-22077",
       "ioValues": [
         {
@@ -406,13 +406,13 @@
         }
       ],
       "interpreterVersion": 1,
-      "code": "\nfunction run(\n  edgeFrom: Assembly,\n  nearestTo: Assembly\n) {\n  let best: replicad.Edge;\n  let bestDist = Infinity;\n  const target: replicad.Vector = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1)\n  edgeFrom.onLeafs((leaf) => {\n    if (!(leaf.geometry instanceof replicad.Drawing)) {\n      for (const edge of leaf.geometry.edges) {\n        const dist = edge.pointAt(edge.length / 2).add(target).Length;\n        if (dist < bestDist || best == undefined) {\n          bestDist = dist\n          best = edge;\n        }\n      }\n      return leaf;\n    }\n  })\n  return replicad.assembleWire([best]);\n}\n\nfunction getBBoxCenter(foo: Assembly) {\n  let bbox: replicad.BoundingBox = undefined;\n  foo.onLeafs((leaf) => {\n    if (bbox == undefined) {\n      bbox = leaf.geometry.boundingBox;\n    } else {\n      bbox.add(leaf.geometry.boundingBox)\n    }\n  })\n  return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/",
-      "compiledCode": "\"use strict\";\nfunction run(edgeFrom, nearestTo) {\n    let best;\n    let bestDist = Infinity;\n    const target = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1);\n    edgeFrom.onLeafs((leaf) => {\n        if (!(leaf.geometry instanceof replicad.Drawing)) {\n            for (const edge of leaf.geometry.edges) {\n                const dist = edge.pointAt(edge.length / 2).add(target).Length;\n                if (dist < bestDist || best == undefined) {\n                    bestDist = dist;\n                    best = edge;\n                }\n            }\n            return leaf;\n        }\n    });\n    return replicad.assembleWire([best]);\n}\nfunction getBBoxCenter(foo) {\n    let bbox = undefined;\n    foo.onLeafs((leaf) => {\n        if (bbox == undefined) {\n            bbox = leaf.geometry.boundingBox;\n        }\n        else {\n            bbox.add(leaf.geometry.boundingBox);\n        }\n    });\n    return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/ \n"
+      "code": "\nfunction run(\n  edgeFrom: Assembly,\n  nearestTo: Assembly\n) {\n  let best: replicad.Edge;\n  let bestDist = Infinity;\n  const target: replicad.Vector = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1)\n  edgeFrom.onLeafs((leaf) => {\n    if (!(leaf.geometry instanceof replicad.Drawing)) {\n      for (const edge of leaf.geometry.edges) {\n        const dist = edge.pointAt(.5).add(target).Length;\n        if (dist < bestDist || best == undefined) {\n          console.log(\"new best dist: \", dist)\n          bestDist = dist\n          best = edge;\n        }\n      }\n      return leaf;\n    }\n  })\n  console.log(best)\n  return replicad.assembleWire([best]);\n}\n\nfunction getBBoxCenter(foo: Assembly) {\n  let bbox: replicad.BoundingBox = undefined;\n  foo.onLeafs((leaf) => {\n    if (bbox == undefined) {\n      bbox = leaf.geometry.boundingBox;\n    } else {\n      bbox.add(leaf.geometry.boundingBox)\n    }\n  })\n  return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/",
+      "compiledCode": "\"use strict\";\nfunction run(edgeFrom, nearestTo) {\n    let best;\n    let bestDist = Infinity;\n    const target = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1);\n    edgeFrom.onLeafs((leaf) => {\n        if (!(leaf.geometry instanceof replicad.Drawing)) {\n            for (const edge of leaf.geometry.edges) {\n                const dist = edge.pointAt(.5).add(target).Length;\n                if (dist < bestDist || best == undefined) {\n                    console.log(\"new best dist: \", dist);\n                    bestDist = dist;\n                    best = edge;\n                }\n            }\n            return leaf;\n        }\n    });\n    console.log(best);\n    return replicad.assembleWire([best]);\n}\nfunction getBBoxCenter(foo) {\n    let bbox = undefined;\n    foo.onLeafs((leaf) => {\n        if (bbox == undefined) {\n            bbox = leaf.geometry.boundingBox;\n        }\n        else {\n            bbox.add(leaf.geometry.boundingBox);\n        }\n    });\n    return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/ \n"
     },
     {
       "atomType": "Circle",
-      "x": 0.57421875,
-      "y": 0.5771428571428572,
+      "x": 0.5690104166666667,
+      "y": 0.6428571428571428,
       "uniqueID": "id-22088",
       "ioValues": [
         {
@@ -423,8 +423,8 @@
     },
     {
       "atomType": "Move",
-      "x": 0.6796875,
-      "y": 0.6542857142857142,
+      "x": 0.7122395833333334,
+      "y": 0.7542857142857143,
       "uniqueID": "id-22091",
       "ioValues": [
         {
@@ -437,19 +437,20 @@
         },
         {
           "name": "yDist",
-          "ioValue": 0
+          "ioValue": -1,
+          "currentEquation": "-1"
         },
         {
           "name": "zDist",
-          "ioValue": 100,
-          "currentEquation": "100"
+          "ioValue": 40,
+          "currentEquation": "40"
         }
       ]
     },
     {
       "atomType": "Extrude",
-      "x": 0.6940104166666666,
-      "y": 0.8057142857142858,
+      "x": 0.6419270833333334,
+      "y": 0.7285714285714285,
       "uniqueID": "id-22097",
       "ioValues": [
         {
@@ -464,8 +465,8 @@
     },
     {
       "atomType": "GitHubMolecule",
-      "x": 0.10807291666666667,
-      "y": 0.4971428571428571,
+      "x": 0.046223958333333336,
+      "y": 0.33714285714285713,
       "uniqueID": "id-22133",
       "name": "CamberInterpreter",
       "ioValues": [
@@ -1209,6 +1210,68 @@
       "unitsKey": "Inches",
       "fileTypeVersion": 1,
       "lastReloadedFromGithubAt": 1783037401624
+    },
+    {
+      "atomType": "Code",
+      "x": 0.77734375,
+      "y": 0.33142857142857146,
+      "uniqueID": "id-22209",
+      "ioValues": [
+        {
+          "name": "edgeFrom",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "nearestTo",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ],
+      "interpreterVersion": 1,
+      "code": "\nfunction run(\n  edgeFrom: Assembly,\n  nearestTo: Assembly\n) {\n  let best: replicad.Edge;\n  let bestDist = Infinity;\n  const target: replicad.Vector = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1)\n  edgeFrom.onLeafs((leaf) => {\n    if (!(leaf.geometry instanceof replicad.Drawing)) {\n      for (const edge of leaf.geometry.edges) {\n        const dist = edge.pointAt(.5).add(target).Length;\n        if (dist < bestDist || best == undefined) {\n          console.log(\"new best dist: \", dist)\n          bestDist = dist\n          best = edge;\n        }\n      }\n      return leaf;\n    }\n  })\n  console.log(best)\n  return replicad.assembleWire([best]);\n}\n\nfunction getBBoxCenter(foo: Assembly) {\n  let bbox: replicad.BoundingBox = undefined;\n  foo.onLeafs((leaf) => {\n    if (bbox == undefined) {\n      bbox = leaf.geometry.boundingBox;\n    } else {\n      bbox.add(leaf.geometry.boundingBox)\n    }\n  })\n  return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/",
+      "compiledCode": "\"use strict\";\nfunction run(edgeFrom, nearestTo) {\n    let best;\n    let bestDist = Infinity;\n    const target = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1);\n    edgeFrom.onLeafs((leaf) => {\n        if (!(leaf.geometry instanceof replicad.Drawing)) {\n            for (const edge of leaf.geometry.edges) {\n                const dist = edge.pointAt(.5).add(target).Length;\n                if (dist < bestDist || best == undefined) {\n                    console.log(\"new best dist: \", dist);\n                    bestDist = dist;\n                    best = edge;\n                }\n            }\n            return leaf;\n        }\n    });\n    console.log(best);\n    return replicad.assembleWire([best]);\n}\nfunction getBBoxCenter(foo) {\n    let bbox = undefined;\n    foo.onLeafs((leaf) => {\n        if (bbox == undefined) {\n            bbox = leaf.geometry.boundingBox;\n        }\n        else {\n            bbox.add(leaf.geometry.boundingBox);\n        }\n    });\n    return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/ \n"
+    },
+    {
+      "atomType": "Move",
+      "x": 0.70703125,
+      "y": 0.3628571428571429,
+      "uniqueID": "id-22223",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "xDist",
+          "ioValue": 72.00000008593803
+        },
+        {
+          "name": "yDist",
+          "ioValue": 1
+        },
+        {
+          "name": "zDist",
+          "ioValue": 40
+        }
+      ]
+    },
+    {
+      "atomType": "Code",
+      "x": 0.8867187499999999,
+      "y": 0.74,
+      "uniqueID": "id-22229",
+      "ioValues": [
+        {
+          "name": "edgeFrom",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "nearestTo",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ],
+      "interpreterVersion": 1,
+      "code": "\nfunction run(\n  edgeFrom: Assembly,\n  nearestTo: Assembly\n) {\n  let best: replicad.Edge;\n  let bestDist = Infinity;\n  const target: replicad.Vector = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1)\n  edgeFrom.onLeafs((leaf) => {\n    if (!(leaf.geometry instanceof replicad.Drawing)) {\n      for (const edge of leaf.geometry.edges) {\n        const dist = edge.pointAt(.5).add(target).Length;\n        if (dist < bestDist || best == undefined) {\n          console.log(\"new best dist: \", dist)\n          bestDist = dist\n          best = edge;\n        }\n      }\n      return leaf;\n    }\n  })\n  console.log(best)\n  return replicad.assembleWire([best]);\n}\n\nfunction getBBoxCenter(foo: Assembly) {\n  let bbox: replicad.BoundingBox = undefined;\n  foo.onLeafs((leaf) => {\n    if (bbox == undefined) {\n      bbox = leaf.geometry.boundingBox;\n    } else {\n      bbox.add(leaf.geometry.boundingBox)\n    }\n  })\n  return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/",
+      "compiledCode": "\"use strict\";\nfunction run(edgeFrom, nearestTo) {\n    let best;\n    let bestDist = Infinity;\n    const target = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1);\n    edgeFrom.onLeafs((leaf) => {\n        if (!(leaf.geometry instanceof replicad.Drawing)) {\n            for (const edge of leaf.geometry.edges) {\n                const dist = edge.pointAt(.5).add(target).Length;\n                if (dist < bestDist || best == undefined) {\n                    console.log(\"new best dist: \", dist);\n                    bestDist = dist;\n                    best = edge;\n                }\n            }\n            return leaf;\n        }\n    });\n    console.log(best);\n    return replicad.assembleWire([best]);\n}\nfunction getBBoxCenter(foo) {\n    let bbox = undefined;\n    foo.onLeafs((leaf) => {\n        if (bbox == undefined) {\n            bbox = leaf.geometry.boundingBox;\n        }\n        else {\n            bbox.add(leaf.geometry.boundingBox);\n        }\n    });\n    return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/ \n"
     }
   ],
   "allConnectors": [
@@ -1263,6 +1326,11 @@
       "ap2ID": "id-22091"
     },
     {
+      "ap2Name": "xDist",
+      "ap1ID": "id-22001",
+      "ap2ID": "id-22223"
+    },
+    {
       "ap2Name": "remove",
       "ap1ID": "id-22005",
       "ap2ID": "id-22009"
@@ -1270,17 +1338,27 @@
     {
       "ap2Name": "geometry",
       "ap1ID": "id-22088",
-      "ap2ID": "id-22091"
-    },
-    {
-      "ap2Name": "geometry",
-      "ap1ID": "id-22091",
       "ap2ID": "id-22097"
     },
     {
       "ap2Name": "nearestTo",
-      "ap1ID": "id-22097",
+      "ap1ID": "id-22091",
       "ap2ID": "id-22077"
+    },
+    {
+      "ap2Name": "nearestTo",
+      "ap1ID": "id-22091",
+      "ap2ID": "id-22229"
+    },
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-22097",
+      "ap2ID": "id-22091"
+    },
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-22097",
+      "ap2ID": "id-22223"
     },
     {
       "ap2Name": "shape",
@@ -1306,6 +1384,26 @@
       "ap2Name": "edgeFrom",
       "ap1ID": "id-22133",
       "ap2ID": "id-22077"
+    },
+    {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-22133",
+      "ap2ID": "id-21583"
+    },
+    {
+      "ap2Name": "edgeFrom",
+      "ap1ID": "id-22133",
+      "ap2ID": "id-22209"
+    },
+    {
+      "ap2Name": "edgeFrom",
+      "ap1ID": "id-22133",
+      "ap2ID": "id-22229"
+    },
+    {
+      "ap2Name": "nearestTo",
+      "ap1ID": "id-22223",
+      "ap2ID": "id-22209"
     }
   ],
   "unitsKey": "Inches",
