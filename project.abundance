@@ -1213,8 +1213,8 @@
     },
     {
       "atomType": "Code",
-      "x": 0.77734375,
-      "y": 0.33142857142857146,
+      "x": 0.7330729166666666,
+      "y": 0.3028571428571429,
       "uniqueID": "id-22209",
       "ioValues": [
         {
@@ -1232,8 +1232,8 @@
     },
     {
       "atomType": "Move",
-      "x": 0.70703125,
-      "y": 0.3628571428571429,
+      "x": 0.6868489583333334,
+      "y": 0.40571428571428575,
       "uniqueID": "id-22223",
       "ioValues": [
         {
@@ -1256,8 +1256,8 @@
     },
     {
       "atomType": "Code",
-      "x": 0.8867187499999999,
-      "y": 0.74,
+      "x": 0.857421875,
+      "y": 0.8771428571428571,
       "uniqueID": "id-22229",
       "ioValues": [
         {
@@ -1271,8 +1271,8 @@
     },
     {
       "atomType": "Assembly",
-      "x": 0.8098958333333333,
-      "y": 0.7228571428571429,
+      "x": 0.794921875,
+      "y": 0.7628571428571428,
       "uniqueID": "id-22234",
       "ioValues": [
         {
@@ -1287,8 +1287,8 @@
     },
     {
       "atomType": "GitHubMolecule",
-      "x": 0.5,
-      "y": 0.6,
+      "x": 0.81640625,
+      "y": 0.27999999999999997,
       "uniqueID": "id-22244",
       "name": "crv.OpenWireLoft",
       "ioValues": [
@@ -1298,7 +1298,8 @@
         },
         {
           "name": "Thickness",
-          "ioValue": 10
+          "ioValue": 0,
+          "currentEquation": "0"
         }
       ],
       "topLevel": false,
@@ -1327,7 +1328,7 @@
             },
             {
               "name": "thickness",
-              "ioValue": 10
+              "ioValue": 0
             }
           ],
           "interpreterVersion": 1,
@@ -1396,6 +1397,33 @@
       "unitsKey": "Unitless",
       "fileTypeVersion": 1,
       "lastReloadedFromGithubAt": 1783038312117
+    },
+    {
+      "atomType": "Assembly",
+      "x": 0.880859375,
+      "y": 0.41714285714285715,
+      "uniqueID": "id-22256",
+      "ioValues": [
+        {
+          "name": "Shape 1",
+          "ioValue": null
+        }
+      ]
+    },
+    {
+      "atomType": "Code",
+      "x": 0.8938802083333334,
+      "y": 0.7028571428571428,
+      "uniqueID": "id-22261",
+      "ioValues": [
+        {
+          "name": "faces",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ],
+      "interpreterVersion": 1,
+      "code": "\nfunction run(\n  faces: Assembly\n) {\n  const faceList: any[] = []\n  faces.onLeafs((leaf) => {\n    if (!(leaf.geometry instanceof replicad.Face || leaf.geometry instanceof replicad.Shell)) {\n      throw new Error(\"Only Face type inputs allowed\")\n    }\n    faceList.push(leaf.geometry)\n    return leaf;\n  })\n  return replicad.makeSolid(faceList)\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/",
+      "compiledCode": "\"use strict\";\nfunction run(faces) {\n    const faceList = [];\n    faces.onLeafs((leaf) => {\n        if (!(leaf.geometry instanceof replicad.Face || leaf.geometry instanceof replicad.Shell)) {\n            throw new Error(\"Only Face type inputs allowed\");\n        }\n        faceList.push(leaf.geometry);\n        return leaf;\n    });\n    return replicad.makeSolid(faceList);\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/ \n"
     }
   ],
   "allConnectors": [
@@ -1533,6 +1561,21 @@
       "ap2Name": "wires",
       "ap1ID": "id-22234",
       "ap2ID": "id-22229"
+    },
+    {
+      "ap2Name": "Wires",
+      "ap1ID": "id-22234",
+      "ap2ID": "id-22244"
+    },
+    {
+      "ap2Name": "Shape 1",
+      "ap1ID": "id-22244",
+      "ap2ID": "id-22256"
+    },
+    {
+      "ap2Name": "faces",
+      "ap1ID": "id-22256",
+      "ap2ID": "id-22261"
     }
   ],
   "unitsKey": "Inches",
