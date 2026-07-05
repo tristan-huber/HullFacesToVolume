@@ -54,8 +54,8 @@
     },
     {
       "atomType": "Equation",
-      "x": 0.25390625,
-      "y": 0.8511904761904762,
+      "x": 0.15494791666666666,
+      "y": 0.8154761904761905,
       "uniqueID": "id-22001",
       "name": "x / 2",
       "ioValues": [
@@ -68,8 +68,8 @@
     },
     {
       "atomType": "Code",
-      "x": 0.08658854166666667,
-      "y": 0.8125,
+      "x": 0.5670572916666667,
+      "y": 0.17261904761904762,
       "uniqueID": "id-22013",
       "ioValues": [
         {
@@ -102,8 +102,8 @@
     },
     {
       "atomType": "Circle",
-      "x": 0.287109375,
-      "y": 0.681547619047619,
+      "x": 0.12890625,
+      "y": 0.5089285714285715,
       "uniqueID": "id-22088",
       "ioValues": [
         {
@@ -114,8 +114,8 @@
     },
     {
       "atomType": "Move",
-      "x": 0.4283854166666667,
-      "y": 0.9047619047619047,
+      "x": 0.2682291666666667,
+      "y": 0.863095238095238,
       "uniqueID": "id-22091",
       "ioValues": [
         {
@@ -138,8 +138,8 @@
     },
     {
       "atomType": "Extrude",
-      "x": 0.3665364583333333,
-      "y": 0.7023809523809524,
+      "x": 0.19661458333333331,
+      "y": 0.5892857142857143,
       "uniqueID": "id-22097",
       "ioValues": [
         {
@@ -154,8 +154,8 @@
     },
     {
       "atomType": "Move",
-      "x": 0.49609375,
-      "y": 0.6875,
+      "x": 0.3255208333333333,
+      "y": 0.6994047619047619,
       "uniqueID": "id-22223",
       "ioValues": [
         {
@@ -178,24 +178,9 @@
       ]
     },
     {
-      "atomType": "Code",
-      "x": 0.7721354166666667,
-      "y": 0.8541666666666667,
-      "uniqueID": "id-22229",
-      "ioValues": [
-        {
-          "name": "wires",
-          "ioValue": "__GEOMETRY_INPUT__"
-        }
-      ],
-      "interpreterVersion": 1,
-      "code": "\nfunction run(\n  wires: Assembly\n) {\n  const wireList: replicad.Wire[] = []\n  wires.onLeafs((leaf) => {\n    if (!(leaf.geometry instanceof replicad.Wire)) {\n      throw new Error(\"Only wire type inputs allowed\")\n    }\n    wireList.push(leaf.geometry)\n    return leaf;\n  })\n  // stitching pass.\n  const stitchedEdges = []\n  for (let i = 0; i < wireList.length; i++) {\n    stitchedEdges.push(wireList[i])\n    const end = wireList[i].endPoint\n    const start = wireList[(i + 1) % wireList.length].startPoint\n    if (!start.equals(end)){\n      stitchedEdges.push(replicad.makeLine(end, start))\n    }\n  }\n\n  return replicad.makeNonPlanarFace(replicad.assembleWire(stitchedEdges))\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/",
-      "compiledCode": "\"use strict\";\nfunction run(wires) {\n    const wireList = [];\n    wires.onLeafs((leaf) => {\n        if (!(leaf.geometry instanceof replicad.Wire)) {\n            throw new Error(\"Only wire type inputs allowed\");\n        }\n        wireList.push(leaf.geometry);\n        return leaf;\n    });\n    // stitching pass.\n    const stitchedEdges = [];\n    for (let i = 0; i < wireList.length; i++) {\n        stitchedEdges.push(wireList[i]);\n        const end = wireList[i].endPoint;\n        const start = wireList[(i + 1) % wireList.length].startPoint;\n        if (!start.equals(end)) {\n            stitchedEdges.push(replicad.makeLine(end, start));\n        }\n    }\n    return replicad.makeNonPlanarFace(replicad.assembleWire(stitchedEdges));\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/ \n"
-    },
-    {
       "atomType": "Assembly",
-      "x": 0.6497395833333334,
-      "y": 0.7708333333333333,
+      "x": 0.5846354166666666,
+      "y": 0.681547619047619,
       "uniqueID": "id-22234",
       "ioValues": [
         {
@@ -210,8 +195,8 @@
     },
     {
       "atomType": "Assembly",
-      "x": 0.6569010416666666,
-      "y": 0.23511904761904764,
+      "x": 0.7252604166666666,
+      "y": 0.35416666666666663,
       "uniqueID": "id-22256",
       "ioValues": [
         {
@@ -241,8 +226,8 @@
     },
     {
       "atomType": "Code",
-      "x": 0.4368489583333333,
-      "y": 0.10714285714285714,
+      "x": 0.42122395833333337,
+      "y": 0.2976190476190476,
       "uniqueID": "id-22265",
       "ioValues": [
         {
@@ -268,8 +253,8 @@
     },
     {
       "atomType": "Code",
-      "x": 0.115234375,
-      "y": 0.5595238095238095,
+      "x": 0.5045572916666666,
+      "y": 0.11011904761904763,
       "uniqueID": "id-22661",
       "ioValues": [
         {
@@ -282,314 +267,9 @@
       "compiledCode": "\"use strict\";\nfunction run(faces) {\n    const faceList = [];\n    faces.onLeafs((leaf) => {\n        if (leaf.geometry instanceof replicad.Face) {\n            faceList.push(leaf.geometry);\n            return leaf;\n        }\n        else if (leaf.is3D()) {\n            if (leaf.geometry instanceof replicad.Shell) {\n                faceList.push(leaf.geometry);\n            }\n            else {\n                console.warn(\"got a non-face non-shell entry. attempting to extract it's faces\");\n                console.log(leaf.geometry instanceof replicad.Compound);\n                for (const face of leaf.geometry.faces) {\n                    faceList.push(face);\n                }\n            }\n            return leaf;\n        }\n        else {\n            throw Error(\"input must be faces or other 3dshape.\");\n        }\n    });\n    return replicad.makeSolid([replicad.weldShellsAndFaces(faceList)]);\n}\n"
     },
     {
-      "atomType": "Fusion",
-      "x": 0.892578125,
-      "y": 0.6964285714285714,
-      "uniqueID": "id-22846",
-      "ioValues": [
-        {
-          "name": "Shape 1",
-          "ioValue": {
-            "geometry": "ef846950-0",
-            "color": "#aad7f2",
-            "tags": [],
-            "bom": [],
-            "plane": {
-              "origin": [
-                0,
-                0,
-                0
-              ],
-              "xDir": [
-                1,
-                0,
-                0
-              ],
-              "normal": [
-                0,
-                0,
-                1
-              ]
-            },
-            "metadata": {},
-            "dimension": "Face"
-          }
-        },
-        {
-          "name": "Shape 2",
-          "ioValue": {
-            "geometry": [
-              {
-                "geometry": [
-                  {
-                    "geometry": "4a444f90-0",
-                    "color": "#aad7f2",
-                    "tags": [],
-                    "bom": [],
-                    "plane": {
-                      "origin": [
-                        0,
-                        0,
-                        0
-                      ],
-                      "xDir": [
-                        1,
-                        0,
-                        0
-                      ],
-                      "normal": [
-                        0,
-                        0,
-                        1
-                      ]
-                    },
-                    "metadata": {},
-                    "dimension": "3D",
-                    "boundingBox": {
-                      "min": [
-                        -1.0012221554159997e-7,
-                        -12.428553386947383,
-                        -9.593802707177348
-                      ],
-                      "max": [
-                        144.00000007182174,
-                        2.035608363079175,
-                        9.970037710823342e-8
-                      ]
-                    }
-                  },
-                  {
-                    "geometry": "4a444f90-1",
-                    "color": "#aad7f2",
-                    "tags": [],
-                    "bom": [],
-                    "plane": {
-                      "origin": [
-                        0,
-                        0,
-                        0
-                      ],
-                      "xDir": [
-                        1,
-                        0,
-                        0
-                      ],
-                      "normal": [
-                        0,
-                        0,
-                        1
-                      ]
-                    },
-                    "metadata": {},
-                    "dimension": "3D",
-                    "boundingBox": {
-                      "min": [
-                        0.43788509752298466,
-                        -11.836562935625828,
-                        -17.85509931275489
-                      ],
-                      "max": [
-                        143.78640106981752,
-                        20.73410985535571,
-                        -5.78880867609189
-                      ]
-                    }
-                  }
-                ],
-                "plane": {
-                  "origin": [
-                    0,
-                    0,
-                    0
-                  ],
-                  "xDir": [
-                    1,
-                    0,
-                    0
-                  ],
-                  "normal": [
-                    0,
-                    0,
-                    1
-                  ]
-                },
-                "color": "#aad7f2",
-                "tags": [],
-                "bom": [],
-                "dimension": "3D",
-                "nonReplicadSerialized": [],
-                "boundingBox": {
-                  "min": [
-                    -1.0012221554159997e-7,
-                    -12.428553386947383,
-                    -17.85509931275489
-                  ],
-                  "max": [
-                    144.00000007182174,
-                    20.73410985535571,
-                    9.970037710823342e-8
-                  ]
-                }
-              },
-              {
-                "geometry": [
-                  {
-                    "geometry": "cut-24f23480-0-extrude-move-rectangle-164-144-72--72-0-{\"origin\":[0,0,0],\"xDir\":[1,0,0],\"normal\":[0,0,1]}--144",
-                    "color": "#aad7f2",
-                    "tags": [],
-                    "bom": [],
-                    "plane": {
-                      "origin": [
-                        0,
-                        0,
-                        0
-                      ],
-                      "xDir": [
-                        1,
-                        0,
-                        0
-                      ],
-                      "normal": [
-                        0,
-                        0,
-                        1
-                      ]
-                    },
-                    "metadata": {},
-                    "dimension": "3D",
-                    "boundingBox": {
-                      "min": [
-                        -1.0012221554159997e-7,
-                        -2.035608363079175,
-                        -9.593802707177348
-                      ],
-                      "max": [
-                        144.00000007182174,
-                        12.428553386947383,
-                        9.970037710823342e-8
-                      ]
-                    }
-                  },
-                  {
-                    "geometry": "cut-24f23480-1-extrude-move-rectangle-164-144-72--72-0-{\"origin\":[0,0,0],\"xDir\":[1,0,0],\"normal\":[0,0,1]}--144",
-                    "color": "#aad7f2",
-                    "tags": [],
-                    "bom": [],
-                    "plane": {
-                      "origin": [
-                        0,
-                        0,
-                        0
-                      ],
-                      "xDir": [
-                        1,
-                        0,
-                        0
-                      ],
-                      "normal": [
-                        0,
-                        0,
-                        1
-                      ]
-                    },
-                    "metadata": {},
-                    "dimension": "3D",
-                    "boundingBox": {
-                      "min": [
-                        0.43788509752298466,
-                        -20.73410985535571,
-                        -17.85509931275489
-                      ],
-                      "max": [
-                        143.78640106981752,
-                        11.836562935625828,
-                        -5.78880867609189
-                      ]
-                    }
-                  }
-                ],
-                "plane": {
-                  "origin": [
-                    0,
-                    0,
-                    0
-                  ],
-                  "xDir": [
-                    1,
-                    0,
-                    0
-                  ],
-                  "normal": [
-                    0,
-                    0,
-                    1
-                  ]
-                },
-                "color": "#aad7f2",
-                "tags": [
-                  "halfhull"
-                ],
-                "bom": [],
-                "nonReplicadSerialized": [],
-                "boundingBox": {
-                  "min": [
-                    -1.0012221554159997e-7,
-                    -20.73410985535571,
-                    -17.85509931275489
-                  ],
-                  "max": [
-                    144.00000007182174,
-                    12.428553386947383,
-                    9.970037710823342e-8
-                  ]
-                }
-              }
-            ],
-            "plane": {
-              "origin": [
-                0,
-                0,
-                0
-              ],
-              "xDir": [
-                1,
-                0,
-                0
-              ],
-              "normal": [
-                0,
-                0,
-                1
-              ]
-            },
-            "color": "#aad7f2",
-            "tags": [
-              "hullfaces"
-            ],
-            "bom": [],
-            "dimension": "3D",
-            "nonReplicadSerialized": [],
-            "boundingBox": {
-              "min": [
-                -1.0012221554159997e-7,
-                -20.73410985535571,
-                -17.85509931275489
-              ],
-              "max": [
-                144.00000007182174,
-                20.73410985535571,
-                9.970037710823342e-8
-              ]
-            }
-          }
-        }
-      ],
-      "unionType": "Fusion"
-    },
-    {
       "atomType": "GitHubMolecule",
-      "x": 0.19466145833333331,
-      "y": 0.8452380952380952,
+      "x": 0.09244791666666667,
+      "y": 0.75,
       "uniqueID": "id-21986",
       "name": "Width",
       "ioValues": [
@@ -676,8 +356,8 @@
     },
     {
       "atomType": "GitHubMolecule",
-      "x": 0.5338541666666666,
-      "y": 0.4255952380952381,
+      "x": 0.6263020833333333,
+      "y": 0.49702380952380953,
       "uniqueID": "id-22244",
       "name": "crv.OpenWireLoft",
       "ioValues": [
@@ -1553,8 +1233,8 @@
     },
     {
       "atomType": "GitHubMolecule",
-      "x": 0.57421875,
-      "y": 0.6577380952380952,
+      "x": 0.4694010416666667,
+      "y": 0.49702380952380953,
       "uniqueID": "id-23040",
       "name": "ClosestEdge",
       "topLevel": false,
@@ -1651,8 +1331,8 @@
     },
     {
       "atomType": "GitHubMolecule",
-      "x": 0.5794270833333334,
-      "y": 0.8303571428571428,
+      "x": 0.4720052083333333,
+      "y": 0.7083333333333333,
       "uniqueID": "id-23052",
       "name": "ClosestEdge",
       "topLevel": false,
@@ -1749,8 +1429,8 @@
     },
     {
       "atomType": "GitHubMolecule",
-      "x": 0.7721354166666667,
-      "y": 0.4910714285714286,
+      "x": 0.8333333333333334,
+      "y": 0.5059523809523809,
       "uniqueID": "id-23072",
       "name": "facesToSolid",
       "ioValues": [
@@ -1840,16 +1520,6 @@
   ],
   "allConnectors": [
     {
-      "ap2Name": "faces",
-      "ap1ID": "id-21806",
-      "ap2ID": "id-21693"
-    },
-    {
-      "ap2Name": "surface",
-      "ap1ID": "id-21806",
-      "ap2ID": "id-22265"
-    },
-    {
       "ap2Name": "xDist",
       "ap1ID": "id-22001",
       "ap2ID": "id-22091"
@@ -1878,16 +1548,6 @@
       "ap2Name": "NearestTo",
       "ap1ID": "id-22223",
       "ap2ID": "id-23040"
-    },
-    {
-      "ap2Name": "Shape 1",
-      "ap1ID": "id-22229",
-      "ap2ID": "id-22846"
-    },
-    {
-      "ap2Name": "wires",
-      "ap1ID": "id-22234",
-      "ap2ID": "id-22229"
     },
     {
       "ap2Name": "Wires",
@@ -1925,24 +1585,9 @@
       "ap2ID": "id-21806"
     },
     {
-      "ap2Name": "faces",
-      "ap1ID": "id-22472",
-      "ap2ID": "id-22013"
-    },
-    {
       "ap2Name": "Shape 2",
       "ap1ID": "id-22472",
       "ap2ID": "id-22256"
-    },
-    {
-      "ap2Name": "faces",
-      "ap1ID": "id-22472",
-      "ap2ID": "id-22661"
-    },
-    {
-      "ap2Name": "Shape 2",
-      "ap1ID": "id-22472",
-      "ap2ID": "id-22846"
     },
     {
       "ap2Name": "Shape",
@@ -1958,6 +1603,11 @@
       "ap2Name": "EdgeFrom",
       "ap1ID": "id-22472",
       "ap2ID": "id-23052"
+    },
+    {
+      "ap2Name": "surface",
+      "ap1ID": "id-22472",
+      "ap2ID": "id-22265"
     },
     {
       "ap2Name": "Shape 2",
