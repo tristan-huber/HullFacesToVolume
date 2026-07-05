@@ -4,6 +4,12 @@
   "y": 0,
   "uniqueID": "id-21582",
   "name": "HullFacesToVolume",
+  "ioValues": [
+    {
+      "name": "HullFaces",
+      "ioValue": "__GEOMETRY_INPUT__"
+    }
+  ],
   "topLevel": true,
   "allAtoms": [
     {
@@ -58,12 +64,6 @@
       "y": 0.8154761904761905,
       "uniqueID": "id-22001",
       "name": "x / 2",
-      "ioValues": [
-        {
-          "name": "x",
-          "ioValue": 144.00000017194395
-        }
-      ],
       "currentEquation": "x / 2"
     },
     {
@@ -121,10 +121,6 @@
         {
           "name": "geometry",
           "ioValue": "__GEOMETRY_INPUT__"
-        },
-        {
-          "name": "xDist",
-          "ioValue": 72.00000008597198
         },
         {
           "name": "yDist",
@@ -199,11 +195,11 @@
       "uniqueID": "id-22256",
       "ioValues": [
         {
-          "name": "Shape 2",
+          "name": "Shape 3",
           "ioValue": null
         },
         {
-          "name": "Shape 3",
+          "name": "Shape 4",
           "ioValue": null
         }
       ]
@@ -344,6 +340,57 @@
           }
         ]
       ]
+    },
+    {
+      "atomType": "Extrude",
+      "x": 0.5729166666666667,
+      "y": 0.5267857142857143,
+      "uniqueID": "id-23382",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "height",
+          "ioValue": 0.25
+        }
+      ]
+    },
+    {
+      "atomType": "Gcode",
+      "x": 0.7252604166666666,
+      "y": 0.6875,
+      "uniqueID": "id-23386",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "Tool Size",
+          "ioValue": 0.25
+        },
+        {
+          "name": "Passes",
+          "ioValue": 1
+        },
+        {
+          "name": "Speed",
+          "ioValue": 1500
+        },
+        {
+          "name": "Cut Through",
+          "ioValue": 0
+        },
+        {
+          "name": "Part Name",
+          "ioValue": "HullFacesToVolume",
+          "currentEquation": "HullFacesToVolume"
+        }
+      ],
+      "partName": "HullFacesToVolume",
+      "sortDirection": "Left"
     },
     {
       "atomType": "GitHubMolecule",
@@ -551,6 +598,12 @@
       "y": 0.49702380952380953,
       "uniqueID": "id-23040",
       "name": "ClosestEdge",
+      "ioValues": [
+        {
+          "name": "EdgeFrom",
+          "ioValue": 10
+        }
+      ],
       "topLevel": false,
       "allAtoms": [
         {
@@ -649,6 +702,12 @@
       "y": 0.7083333333333333,
       "uniqueID": "id-23052",
       "name": "ClosestEdge",
+      "ioValues": [
+        {
+          "name": "EdgeFrom",
+          "ioValue": 10
+        }
+      ],
       "topLevel": false,
       "allAtoms": [
         {
@@ -1047,8 +1106,8 @@
     },
     {
       "atomType": "GitHubMolecule",
-      "x": 0.046223958333333336,
-      "y": 0.33714285714285713,
+      "x": 0.12760416666666666,
+      "y": 0.19642857142857142,
       "uniqueID": "id-22472",
       "name": "CamberInterpreter",
       "ioValues": [
@@ -1811,56 +1870,12 @@
       "lastReloadedFromGithubAt": 1783106713314
     },
     {
-      "atomType": "Extrude",
-      "x": 0.5729166666666667,
-      "y": 0.5267857142857143,
-      "uniqueID": "id-23382",
-      "ioValues": [
-        {
-          "name": "geometry",
-          "ioValue": "__GEOMETRY_INPUT__"
-        },
-        {
-          "name": "height",
-          "ioValue": 0.25,
-          "currentEquation": "0.25"
-        }
-      ]
-    },
-    {
-      "atomType": "Gcode",
-      "x": 0.7252604166666666,
-      "y": 0.6875,
-      "uniqueID": "id-23386",
-      "ioValues": [
-        {
-          "name": "geometry",
-          "ioValue": "__GEOMETRY_INPUT__"
-        },
-        {
-          "name": "Tool Size",
-          "ioValue": 0.25
-        },
-        {
-          "name": "Passes",
-          "ioValue": 1
-        },
-        {
-          "name": "Speed",
-          "ioValue": 1500
-        },
-        {
-          "name": "Cut Through",
-          "ioValue": 0
-        },
-        {
-          "name": "Part Name",
-          "ioValue": "HullFacesToVolume",
-          "currentEquation": "HullFacesToVolume"
-        }
-      ],
-      "partName": "HullFacesToVolume",
-      "sortDirection": "Left"
+      "atomType": "Input",
+      "x": 0.025384615384615384,
+      "y": 0.35416666666666663,
+      "uniqueID": "id-23607",
+      "name": "HullFaces",
+      "type": "geometry"
     }
   ],
   "allConnectors": [
@@ -1925,12 +1940,17 @@
       "ap2ID": "id-23382"
     },
     {
+      "ap2Name": "geometry",
+      "ap1ID": "id-23382",
+      "ap2ID": "id-23386"
+    },
+    {
       "ap2Name": "x",
       "ap1ID": "id-21986",
       "ap2ID": "id-22001"
     },
     {
-      "ap2Name": "Shape 3",
+      "ap2Name": "Shape 4",
       "ap1ID": "id-22244",
       "ap2ID": "id-22256"
     },
@@ -1960,26 +1980,6 @@
       "ap2ID": "id-21806"
     },
     {
-      "ap2Name": "Shape 2",
-      "ap1ID": "id-22472",
-      "ap2ID": "id-22256"
-    },
-    {
-      "ap2Name": "Shape",
-      "ap1ID": "id-22472",
-      "ap2ID": "id-21986"
-    },
-    {
-      "ap2Name": "EdgeFrom",
-      "ap1ID": "id-22472",
-      "ap2ID": "id-23040"
-    },
-    {
-      "ap2Name": "EdgeFrom",
-      "ap1ID": "id-22472",
-      "ap2ID": "id-23052"
-    },
-    {
       "ap2Name": "surface",
       "ap1ID": "id-22472",
       "ap2ID": "id-22265"
@@ -1990,9 +1990,24 @@
       "ap2ID": "id-23136"
     },
     {
-      "ap2Name": "geometry",
-      "ap1ID": "id-23382",
-      "ap2ID": "id-23386"
+      "ap2Name": "Shape",
+      "ap1ID": "id-23607",
+      "ap2ID": "id-21986"
+    },
+    {
+      "ap2Name": "EdgeFrom",
+      "ap1ID": "id-23607",
+      "ap2ID": "id-23052"
+    },
+    {
+      "ap2Name": "EdgeFrom",
+      "ap1ID": "id-23607",
+      "ap2ID": "id-23040"
+    },
+    {
+      "ap2Name": "Shape 3",
+      "ap1ID": "id-23607",
+      "ap2ID": "id-22256"
     }
   ],
   "unitsKey": "Inches",
