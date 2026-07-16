@@ -124,8 +124,7 @@
         },
         {
           "name": "yDist",
-          "ioValue": 0,
-          "currentEquation": "0"
+          "ioValue": 0
         }
       ]
     },
@@ -215,7 +214,7 @@
         }
       ],
       "orientations": [],
-      "orientationsForHashed": "394beab0"
+      "orientationsForHashed": "e4ee48ec"
     },
     {
       "atomType": "CutLayout",
@@ -340,6 +339,23 @@
       "uniqueID": "id-23607",
       "name": "HullFaces",
       "type": "geometry"
+    },
+    {
+      "atomType": "Fusion",
+      "x": 0.6067708333333334,
+      "y": 0.7053571428571429,
+      "uniqueID": "id-24102",
+      "ioValues": [
+        {
+          "name": "Shape 1",
+          "ioValue": null
+        },
+        {
+          "name": "Shape 2",
+          "ioValue": null
+        }
+      ],
+      "unionType": "Fusion"
     },
     {
       "atomType": "GitHubMolecule",
@@ -540,96 +556,6 @@
       "unitsKey": "Unitless",
       "fileTypeVersion": 1,
       "lastReloadedFromGithubAt": 1783038312117
-    },
-    {
-      "atomType": "GitHubMolecule",
-      "x": 0.8333333333333334,
-      "y": 0.5059523809523809,
-      "uniqueID": "id-23072",
-      "name": "facesToSolid",
-      "ioValues": [
-        {
-          "name": "FaceAssembly",
-          "ioValue": "__GEOMETRY_INPUT__"
-        }
-      ],
-      "topLevel": false,
-      "allAtoms": [
-        {
-          "atomType": "Output",
-          "x": 0.98,
-          "y": 0.5,
-          "uniqueID": "id-23069",
-          "ioValues": [
-            {
-              "name": "number or geometry",
-              "ioValue": "__GEOMETRY_INPUT__"
-            }
-          ]
-        },
-        {
-          "atomType": "Code",
-          "x": 0.4479166666666667,
-          "y": 0.5595238095238095,
-          "uniqueID": "id-23070",
-          "ioValues": [
-            {
-              "name": "faces",
-              "ioValue": "__GEOMETRY_INPUT__"
-            }
-          ],
-          "interpreterVersion": 1,
-          "code": "function run(faces: Assembly) {\n  const faceList: any[] = []\n  faces.onLeafs((leaf) => {\n    if (leaf.geometry instanceof replicad.Face) {\n      faceList.push(leaf.geometry)\n      return leaf;\n    } else if (leaf.is3D()) {\n      if (leaf.geometry instanceof replicad.Shell) {\n        faceList.push(leaf.geometry)\n      } else {\n        console.warn(\"got a non-face non-shell entry. attempting to extract it's faces\")\n        console.log(leaf.geometry instanceof replicad.Compound)\n        for (const face of leaf.geometry.faces) {\n          faceList.push(face);\n        }\n      }\n      return leaf;\n    } else {\n      throw Error(\"input must be faces or other 3dshape.\")\n    }\n  });\n  return replicad.makeSolid([replicad.weldShellsAndFaces(faceList)]);\n}",
-          "compiledCode": "\"use strict\";\nfunction run(faces) {\n    const faceList = [];\n    faces.onLeafs((leaf) => {\n        if (leaf.geometry instanceof replicad.Face) {\n            faceList.push(leaf.geometry);\n            return leaf;\n        }\n        else if (leaf.is3D()) {\n            if (leaf.geometry instanceof replicad.Shell) {\n                faceList.push(leaf.geometry);\n            }\n            else {\n                console.warn(\"got a non-face non-shell entry. attempting to extract it's faces\");\n                console.log(leaf.geometry instanceof replicad.Compound);\n                for (const face of leaf.geometry.faces) {\n                    faceList.push(face);\n                }\n            }\n            return leaf;\n        }\n        else {\n            throw Error(\"input must be faces or other 3dshape.\");\n        }\n    });\n    return replicad.makeSolid([replicad.weldShellsAndFaces(faceList)]);\n}\n"
-        },
-        {
-          "atomType": "Input",
-          "x": 0.025384615384615384,
-          "y": 0.15384615384615385,
-          "uniqueID": "id-23071",
-          "name": "FaceAssembly",
-          "type": "geometry"
-        }
-      ],
-      "allConnectors": [
-        {
-          "ap2Name": "number or geometry",
-          "ap1ID": "id-23070",
-          "ap2ID": "id-23069"
-        },
-        {
-          "ap2Name": "faces",
-          "ap1ID": "id-23071",
-          "ap2ID": "id-23070"
-        }
-      ],
-      "parentRepo": {
-        "lastFoundGit": "2026-07-05T10:23:39.244Z",
-        "privateRepo": false,
-        "repoName": "facesToSolid",
-        "dateCreated": "2026-07-04T21:08:34Z",
-        "readMe": "https://raw.githubusercontent.com/tristan-huber/facesToSolid/master/README.md?sanitize=true",
-        "yyyy": 2026,
-        "topMoleculeID": "id-22553",
-        "githubMoleculesUsed": [],
-        "html_url": "https://github.com/tristan-huber/facesToSolid",
-        "topics": [
-          "abundance-tool"
-        ],
-        "parentRepo": null,
-        "forks": 0,
-        "dateModified": "739801",
-        "ranking": 0,
-        "searchField": "facestosolid tristan-huber make a solid based on an assembly of faces that fully enclose a volume.  abundance-tool",
-        "owner": "tristan-huber",
-        "description": "make a solid based on an assembly of faces that fully enclose a volume. ",
-        "contentURL": "https://raw.githubusercontent.com/tristan-huber/facesToSolid/master/project.abundance?sanitize=true",
-        "svgURL": "https://raw.githubusercontent.com/tristan-huber/facesToSolid/master/project.svg?sanitize=true",
-        "isLocal": false
-      },
-      "unitsKey": "Unitless",
-      "fileTypeVersion": 1,
-      "lastReloadedFromGithubAt": 1783270605697
     },
     {
       "atomType": "GitHubMolecule",
@@ -844,6 +770,136 @@
       "unitsKey": "Unitless",
       "fileTypeVersion": 1,
       "lastReloadedFromGithubAt": 1783271911026
+    },
+    {
+      "atomType": "GitHubMolecule",
+      "x": 0.33723958333333337,
+      "y": 0.8422619047619048,
+      "uniqueID": "id-24086",
+      "name": "ClosestEdge",
+      "ioValues": [
+        {
+          "name": "EdgeFrom",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "NearestTo",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "tieTolerance",
+          "ioValue": 0.001
+        }
+      ],
+      "topLevel": false,
+      "allAtoms": [
+        {
+          "atomType": "Output",
+          "x": 0.98,
+          "y": 0.5,
+          "uniqueID": "id-24081",
+          "ioValues": [
+            {
+              "name": "number or geometry",
+              "ioValue": "__GEOMETRY_INPUT__"
+            }
+          ]
+        },
+        {
+          "atomType": "Code",
+          "x": 0.4309895833333333,
+          "y": 0.5059523809523809,
+          "uniqueID": "id-24082",
+          "ioValues": [
+            {
+              "name": "edgeFrom",
+              "ioValue": "__GEOMETRY_INPUT__"
+            },
+            {
+              "name": "nearestTo",
+              "ioValue": "__GEOMETRY_INPUT__"
+            },
+            {
+              "name": "tolerance",
+              "ioValue": 0.001
+            }
+          ],
+          "interpreterVersion": 1,
+          "code": "\nfunction run(\n  edgeFrom: Assembly,\n  nearestTo: Assembly,\n  tolerance: number = 0.001\n) {\n  let best: replicad.Edge[] = [];\n  let bestDist = Infinity;\n  const target: replicad.Vector = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1)\n  edgeFrom.onLeafs((leaf) => {\n    if (!(leaf.geometry instanceof replicad.Drawing)) {\n      for (const edge of leaf.geometry.edges) {\n        const dist = edge.pointAt(.5).add(target).Length;\n        if (dist - bestDist < -1 * tolerance || best.length == 0) {\n          console.log(\"new best dist: \", dist)\n          best = [edge]\n          bestDist = dist;\n        } else if (Math.abs(dist - bestDist) < tolerance) {\n          // include ties\n          best.push(edge)\n        }\n      }\n      return leaf;\n    }\n  })\n  console.log(best)\n  return best.map((e) => { return replicad.assembleWire([e]) });\n}\n\nfunction getBBoxCenter(foo: Assembly) {\n  let bbox: replicad.BoundingBox = undefined;\n  foo.onLeafs((leaf) => {\n    if (bbox == undefined) {\n      bbox = leaf.geometry.boundingBox;\n    } else {\n      bbox.add(leaf.geometry.boundingBox)\n    }\n  })\n  return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/",
+          "compiledCode": "\"use strict\";\nfunction run(edgeFrom, nearestTo, tolerance = 0.001) {\n    let best = [];\n    let bestDist = Infinity;\n    const target = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1);\n    edgeFrom.onLeafs((leaf) => {\n        if (!(leaf.geometry instanceof replicad.Drawing)) {\n            for (const edge of leaf.geometry.edges) {\n                const dist = edge.pointAt(.5).add(target).Length;\n                if (dist - bestDist < -1 * tolerance || best.length == 0) {\n                    console.log(\"new best dist: \", dist);\n                    best = [edge];\n                    bestDist = dist;\n                }\n                else if (Math.abs(dist - bestDist) < tolerance) {\n                    // include ties\n                    best.push(edge);\n                }\n            }\n            return leaf;\n        }\n    });\n    console.log(best);\n    return best.map((e) => { return replicad.assembleWire([e]); });\n}\nfunction getBBoxCenter(foo) {\n    let bbox = undefined;\n    foo.onLeafs((leaf) => {\n        if (bbox == undefined) {\n            bbox = leaf.geometry.boundingBox;\n        }\n        else {\n            bbox.add(leaf.geometry.boundingBox);\n        }\n    });\n    return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/ \n"
+        },
+        {
+          "atomType": "Input",
+          "x": 0.025384615384615384,
+          "y": 0.15384615384615385,
+          "uniqueID": "id-24083",
+          "name": "EdgeFrom",
+          "type": "geometry"
+        },
+        {
+          "atomType": "Input",
+          "x": 0.025384615384615384,
+          "y": 0.24615384615384617,
+          "uniqueID": "id-24084",
+          "name": "NearestTo",
+          "type": "geometry"
+        },
+        {
+          "atomType": "Input",
+          "x": 0.025384615384615384,
+          "y": 0.3384615384615385,
+          "uniqueID": "id-24085",
+          "name": "tieTolerance"
+        }
+      ],
+      "allConnectors": [
+        {
+          "ap2Name": "number or geometry",
+          "ap1ID": "id-24082",
+          "ap2ID": "id-24081"
+        },
+        {
+          "ap2Name": "edgeFrom",
+          "ap1ID": "id-24083",
+          "ap2ID": "id-24082"
+        },
+        {
+          "ap2Name": "nearestTo",
+          "ap1ID": "id-24084",
+          "ap2ID": "id-24082"
+        },
+        {
+          "ap2Name": "tolerance",
+          "ap1ID": "id-24085",
+          "ap2ID": "id-24082"
+        }
+      ],
+      "parentRepo": {
+        "privateRepo": false,
+        "repoName": "ClosestEdge",
+        "dateCreated": "2026-07-05T16:50:19Z",
+        "readMe": "https://raw.githubusercontent.com/tristan-huber/ClosestEdge/master/README.md?sanitize=true",
+        "yyyy": 2026,
+        "topMoleculeID": "id-22851",
+        "githubMoleculesUsed": [],
+        "html_url": "https://github.com/tristan-huber/ClosestEdge",
+        "topics": [
+          "abundance-tool"
+        ],
+        "parentRepo": null,
+        "forks": 0,
+        "dateModified": "739802",
+        "ranking": 0,
+        "searchField": "closestedge tristan-huber return a single edge from an assembly which is closest to another selector shape / assembly. pick an edge based on distance / nearness abundance-tool",
+        "owner": "tristan-huber",
+        "description": "Return a single edge from an assembly which is closest to another selector shape / assembly. Pick an edge based on distance / nearness",
+        "contentURL": "https://raw.githubusercontent.com/tristan-huber/ClosestEdge/master/project.abundance?sanitize=true",
+        "svgURL": "https://raw.githubusercontent.com/tristan-huber/ClosestEdge/master/project.svg?sanitize=true",
+        "isLocal": false
+      },
+      "unitsKey": "Unitless",
+      "fileTypeVersion": 1,
+      "lastReloadedFromGithubAt": 1783278324521
     },
     {
       "atomType": "GitHubMolecule",
@@ -1612,22 +1668,14 @@
     },
     {
       "atomType": "GitHubMolecule",
-      "x": 0.33723958333333337,
-      "y": 0.8422619047619048,
-      "uniqueID": "id-24086",
-      "name": "ClosestEdge",
+      "x": 0.8333333333333334,
+      "y": 0.5059523809523809,
+      "uniqueID": "id-24323",
+      "name": "facesToSolid",
       "ioValues": [
         {
-          "name": "EdgeFrom",
+          "name": "FaceAssembly",
           "ioValue": "__GEOMETRY_INPUT__"
-        },
-        {
-          "name": "NearestTo",
-          "ioValue": "__GEOMETRY_INPUT__"
-        },
-        {
-          "name": "tieTolerance",
-          "ioValue": 0.001
         }
       ],
       "topLevel": false,
@@ -1636,7 +1684,7 @@
           "atomType": "Output",
           "x": 0.98,
           "y": 0.5,
-          "uniqueID": "id-24081",
+          "uniqueID": "id-24320",
           "ioValues": [
             {
               "name": "number or geometry",
@@ -1646,116 +1694,67 @@
         },
         {
           "atomType": "Code",
-          "x": 0.4309895833333333,
-          "y": 0.5059523809523809,
-          "uniqueID": "id-24082",
+          "x": 0.5261718750000001,
+          "y": 0.3896103896103896,
+          "uniqueID": "id-24321",
           "ioValues": [
             {
-              "name": "edgeFrom",
+              "name": "faces",
               "ioValue": "__GEOMETRY_INPUT__"
-            },
-            {
-              "name": "nearestTo",
-              "ioValue": "__GEOMETRY_INPUT__"
-            },
-            {
-              "name": "tolerance",
-              "ioValue": 0.001
             }
           ],
           "interpreterVersion": 1,
-          "code": "\nfunction run(\n  edgeFrom: Assembly,\n  nearestTo: Assembly,\n  tolerance: number = 0.001\n) {\n  let best: replicad.Edge[] = [];\n  let bestDist = Infinity;\n  const target: replicad.Vector = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1)\n  edgeFrom.onLeafs((leaf) => {\n    if (!(leaf.geometry instanceof replicad.Drawing)) {\n      for (const edge of leaf.geometry.edges) {\n        const dist = edge.pointAt(.5).add(target).Length;\n        if (dist - bestDist < -1 * tolerance || best.length == 0) {\n          console.log(\"new best dist: \", dist)\n          best = [edge]\n          bestDist = dist;\n        } else if (Math.abs(dist - bestDist) < tolerance) {\n          // include ties\n          best.push(edge)\n        }\n      }\n      return leaf;\n    }\n  })\n  console.log(best)\n  return best.map((e) => { return replicad.assembleWire([e]) });\n}\n\nfunction getBBoxCenter(foo: Assembly) {\n  let bbox: replicad.BoundingBox = undefined;\n  foo.onLeafs((leaf) => {\n    if (bbox == undefined) {\n      bbox = leaf.geometry.boundingBox;\n    } else {\n      bbox.add(leaf.geometry.boundingBox)\n    }\n  })\n  return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/",
-          "compiledCode": "\"use strict\";\nfunction run(edgeFrom, nearestTo, tolerance = 0.001) {\n    let best = [];\n    let bestDist = Infinity;\n    const target = new replicad.Vector(getBBoxCenter(nearestTo)).multiply(-1);\n    edgeFrom.onLeafs((leaf) => {\n        if (!(leaf.geometry instanceof replicad.Drawing)) {\n            for (const edge of leaf.geometry.edges) {\n                const dist = edge.pointAt(.5).add(target).Length;\n                if (dist - bestDist < -1 * tolerance || best.length == 0) {\n                    console.log(\"new best dist: \", dist);\n                    best = [edge];\n                    bestDist = dist;\n                }\n                else if (Math.abs(dist - bestDist) < tolerance) {\n                    // include ties\n                    best.push(edge);\n                }\n            }\n            return leaf;\n        }\n    });\n    console.log(best);\n    return best.map((e) => { return replicad.assembleWire([e]); });\n}\nfunction getBBoxCenter(foo) {\n    let bbox = undefined;\n    foo.onLeafs((leaf) => {\n        if (bbox == undefined) {\n            bbox = leaf.geometry.boundingBox;\n        }\n        else {\n            bbox.add(leaf.geometry.boundingBox);\n        }\n    });\n    return bbox.center;\n}\n/*\n  const surfaces = [];\n  const leadFaceEdges = [];\n  const endFaceEdges = [];\n  for (let i = 0; i < wireList.length; i++) {\n    const w1 = wireList[i]\n    const w2 = wireList[(i + 1) % wireList.length]\n    const surf = replicad.loft([w1, w2], {}, true)\n    surfaces.push(surf)\n    leadFaceEdges.push(replicad.makeLine(w1.startPoint, w2.startPoint))\n    endFaceEdges.push(replicad.makeLine(w1.endPoint, w2.endPoint))\n  }\n  const frontCap = replicad.makeNonPlanarFace(replicad.assembleWire(leadFaceEdges))\n  const endCap = replicad.makeNonPlanarFace(replicad.assembleWire(endFaceEdges))\n\n  return replicad.makeSolid([frontCap, ...surfaces, endCap])*/ \n"
+          "code": "function run(faces: Assembly) {\n  const faceList: any[] = []\n  faces.onLeafs((leaf) => {\n    if (leaf.geometry instanceof replicad.Face) {\n      faceList.push(leaf.geometry)\n      return leaf;\n    } else if (leaf.is3D()) {\n      if (leaf.geometry instanceof replicad.Shell) {\n        faceList.push(leaf.geometry)\n      } else {\n        console.warn(\"got a non-face non-shell entry. attempting to extract it's faces\")\n        console.log(leaf.geometry instanceof replicad.Compound)\n        for (const face of leaf.geometry.faces) {\n          faceList.push(face);\n        }\n      }\n      return leaf;\n    } else {\n      throw Error(\"input must be faces or other 3dshape.\")\n    }\n  });\n\n  let comp = replicad.weldShellsAndFaces(faceList, true)\n  const shells = Array.from(replicad.iterTopo(comp.wrapped, \"shell\"))\n  comp = replicad.makeSolid(shells.map(replicad.cast))\n  return comp\n}",
+          "compiledCode": "\"use strict\";\nfunction run(faces) {\n    const faceList = [];\n    faces.onLeafs((leaf) => {\n        if (leaf.geometry instanceof replicad.Face) {\n            faceList.push(leaf.geometry);\n            return leaf;\n        }\n        else if (leaf.is3D()) {\n            if (leaf.geometry instanceof replicad.Shell) {\n                faceList.push(leaf.geometry);\n            }\n            else {\n                console.warn(\"got a non-face non-shell entry. attempting to extract it's faces\");\n                console.log(leaf.geometry instanceof replicad.Compound);\n                for (const face of leaf.geometry.faces) {\n                    faceList.push(face);\n                }\n            }\n            return leaf;\n        }\n        else {\n            throw Error(\"input must be faces or other 3dshape.\");\n        }\n    });\n    let comp = replicad.weldShellsAndFaces(faceList, true);\n    const shells = Array.from(replicad.iterTopo(comp.wrapped, \"shell\"));\n    comp = replicad.makeSolid(shells.map(replicad.cast));\n    return comp;\n}\n"
         },
         {
           "atomType": "Input",
           "x": 0.025384615384615384,
           "y": 0.15384615384615385,
-          "uniqueID": "id-24083",
-          "name": "EdgeFrom",
+          "uniqueID": "id-24322",
+          "name": "FaceAssembly",
           "type": "geometry"
-        },
-        {
-          "atomType": "Input",
-          "x": 0.025384615384615384,
-          "y": 0.24615384615384617,
-          "uniqueID": "id-24084",
-          "name": "NearestTo",
-          "type": "geometry"
-        },
-        {
-          "atomType": "Input",
-          "x": 0.025384615384615384,
-          "y": 0.3384615384615385,
-          "uniqueID": "id-24085",
-          "name": "tieTolerance"
         }
       ],
       "allConnectors": [
         {
           "ap2Name": "number or geometry",
-          "ap1ID": "id-24082",
-          "ap2ID": "id-24081"
+          "ap1ID": "id-24321",
+          "ap2ID": "id-24320"
         },
         {
-          "ap2Name": "edgeFrom",
-          "ap1ID": "id-24083",
-          "ap2ID": "id-24082"
-        },
-        {
-          "ap2Name": "nearestTo",
-          "ap1ID": "id-24084",
-          "ap2ID": "id-24082"
-        },
-        {
-          "ap2Name": "tolerance",
-          "ap1ID": "id-24085",
-          "ap2ID": "id-24082"
+          "ap2Name": "faces",
+          "ap1ID": "id-24322",
+          "ap2ID": "id-24321"
         }
       ],
       "parentRepo": {
+        "lastFoundGit": "2026-07-05T10:23:39.244Z",
         "privateRepo": false,
-        "repoName": "ClosestEdge",
-        "dateCreated": "2026-07-05T16:50:19Z",
-        "readMe": "https://raw.githubusercontent.com/tristan-huber/ClosestEdge/master/README.md?sanitize=true",
+        "repoName": "facesToSolid",
+        "dateCreated": "2026-07-04T21:08:34Z",
+        "readMe": "https://raw.githubusercontent.com/tristan-huber/facesToSolid/master/README.md?sanitize=true",
         "yyyy": 2026,
-        "topMoleculeID": "id-22851",
+        "topMoleculeID": "id-22553",
         "githubMoleculesUsed": [],
-        "html_url": "https://github.com/tristan-huber/ClosestEdge",
+        "html_url": "https://github.com/tristan-huber/facesToSolid",
         "topics": [
           "abundance-tool"
         ],
         "parentRepo": null,
         "forks": 0,
-        "dateModified": "739802",
+        "dateModified": "739801",
         "ranking": 0,
-        "searchField": "closestedge tristan-huber return a single edge from an assembly which is closest to another selector shape / assembly. pick an edge based on distance / nearness abundance-tool",
+        "searchField": "facestosolid tristan-huber make a solid based on an assembly of faces that fully enclose a volume.  abundance-tool",
         "owner": "tristan-huber",
-        "description": "Return a single edge from an assembly which is closest to another selector shape / assembly. Pick an edge based on distance / nearness",
-        "contentURL": "https://raw.githubusercontent.com/tristan-huber/ClosestEdge/master/project.abundance?sanitize=true",
-        "svgURL": "https://raw.githubusercontent.com/tristan-huber/ClosestEdge/master/project.svg?sanitize=true",
+        "description": "make a solid based on an assembly of faces that fully enclose a volume. ",
+        "contentURL": "https://raw.githubusercontent.com/tristan-huber/facesToSolid/master/project.abundance?sanitize=true",
+        "svgURL": "https://raw.githubusercontent.com/tristan-huber/facesToSolid/master/project.svg?sanitize=true",
         "isLocal": false
       },
       "unitsKey": "Unitless",
       "fileTypeVersion": 1,
-      "lastReloadedFromGithubAt": 1783278324521
-    },
-    {
-      "atomType": "Fusion",
-      "x": 0.6067708333333334,
-      "y": 0.7053571428571429,
-      "uniqueID": "id-24102",
-      "ioValues": [
-        {
-          "name": "Shape 1",
-          "ioValue": "__GEOMETRY_INPUT__"
-        },
-        {
-          "name": "Shape 2",
-          "ioValue": null
-        }
-      ],
-      "unionType": "Fusion"
+      "lastReloadedFromGithubAt": 1784186283627
     }
   ],
   "allConnectors": [
@@ -1800,19 +1799,9 @@
       "ap2ID": "id-23386"
     },
     {
-      "ap2Name": "EdgeFrom",
-      "ap1ID": "id-23607",
-      "ap2ID": "id-24086"
-    },
-    {
-      "ap2Name": "Shape",
-      "ap1ID": "id-23607",
-      "ap2ID": "id-21986"
-    },
-    {
-      "ap2Name": "Shape 1",
-      "ap1ID": "id-23607",
-      "ap2ID": "id-24102"
+      "ap2Name": "FaceAssembly",
+      "ap1ID": "id-24102",
+      "ap2ID": "id-24310"
     },
     {
       "ap2Name": "x",
@@ -1825,14 +1814,14 @@
       "ap2ID": "id-24102"
     },
     {
-      "ap2Name": "number or geometry",
-      "ap1ID": "id-23072",
-      "ap2ID": "id-21583"
-    },
-    {
       "ap2Name": "geometry",
       "ap1ID": "id-23136",
       "ap2ID": "id-23167"
+    },
+    {
+      "ap2Name": "Wires",
+      "ap1ID": "id-24086",
+      "ap2ID": "id-22244"
     },
     {
       "ap2Name": "geometry",
@@ -1850,14 +1839,19 @@
       "ap2ID": "id-23136"
     },
     {
-      "ap2Name": "Wires",
-      "ap1ID": "id-24086",
-      "ap2ID": "id-22244"
+      "ap2Name": "Shape",
+      "ap1ID": "id-22472",
+      "ap2ID": "id-21986"
     },
     {
-      "ap2Name": "FaceAssembly",
-      "ap1ID": "id-24102",
-      "ap2ID": "id-23072"
+      "ap2Name": "EdgeFrom",
+      "ap1ID": "id-22472",
+      "ap2ID": "id-24086"
+    },
+    {
+      "ap2Name": "Shape 1",
+      "ap1ID": "id-22472",
+      "ap2ID": "id-24102"
     }
   ],
   "unitsKey": "Inches",
