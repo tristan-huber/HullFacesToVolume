@@ -64,6 +64,12 @@
       "y": 0.8154761904761905,
       "uniqueID": "id-22001",
       "name": "x / 2",
+      "ioValues": [
+        {
+          "name": "x",
+          "ioValue": 144.00000017154085
+        }
+      ],
       "currentEquation": "x / 2"
     },
     {
@@ -123,8 +129,16 @@
           "ioValue": "__GEOMETRY_INPUT__"
         },
         {
+          "name": "xDist",
+          "ioValue": 72.00000008577042
+        },
+        {
           "name": "yDist",
           "ioValue": 0
+        },
+        {
+          "name": "zDist",
+          "ioValue": 72.00000008577042
         }
       ]
     },
@@ -214,7 +228,7 @@
         }
       ],
       "orientations": [],
-      "orientationsForHashed": "e4ee48ec"
+      "orientationsForHashed": "8de21bdc"
     },
     {
       "atomType": "CutLayout",
@@ -348,14 +362,321 @@
       "ioValues": [
         {
           "name": "Shape 1",
-          "ioValue": null
+          "ioValue": {
+            "geometry": [
+              {
+                "geometry": [
+                  {
+                    "geometry": "c157e280-0",
+                    "color": "#aad7f2",
+                    "tags": [],
+                    "bom": [],
+                    "plane": {
+                      "origin": [
+                        0,
+                        0,
+                        0
+                      ],
+                      "xDir": [
+                        1,
+                        0,
+                        0
+                      ],
+                      "normal": [
+                        0,
+                        0,
+                        1
+                      ]
+                    },
+                    "metadata": {},
+                    "dimension": "3D",
+                    "boundingBox": {
+                      "min": [
+                        -9.965197726082183e-8,
+                        -11.019368688480483,
+                        -9.598525969822125
+                      ],
+                      "max": [
+                        144.00000007188888,
+                        2.041928684509668,
+                        9.984313471321622e-8
+                      ]
+                    }
+                  },
+                  {
+                    "geometry": "c157e280-1",
+                    "color": "#aad7f2",
+                    "tags": [],
+                    "bom": [],
+                    "plane": {
+                      "origin": [
+                        0,
+                        0,
+                        0
+                      ],
+                      "xDir": [
+                        1,
+                        0,
+                        0
+                      ],
+                      "normal": [
+                        0,
+                        0,
+                        1
+                      ]
+                    },
+                    "metadata": {},
+                    "dimension": "3D",
+                    "boundingBox": {
+                      "min": [
+                        0.4180008920660196,
+                        -10.778082594866786,
+                        -17.86806675949903
+                      ],
+                      "max": [
+                        143.8996487893736,
+                        21.83063646662155,
+                        -5.79301285656024
+                      ]
+                    }
+                  }
+                ],
+                "plane": {
+                  "origin": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "xDir": [
+                    1,
+                    0,
+                    0
+                  ],
+                  "normal": [
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "color": "#aad7f2",
+                "tags": [],
+                "bom": [],
+                "dimension": "3D",
+                "nonReplicadSerialized": [],
+                "boundingBox": {
+                  "min": [
+                    -9.965197726082183e-8,
+                    -11.019368688480483,
+                    -17.86806675949903
+                  ],
+                  "max": [
+                    144.00000007188888,
+                    21.83063646662155,
+                    9.984313471321622e-8
+                  ]
+                }
+              },
+              {
+                "geometry": [
+                  {
+                    "geometry": "cut-002af6aa-0-extrude-move-rectangle-164-144-72--72-0-{\"origin\":[0,0,0],\"xDir\":[1,0,0],\"normal\":[0,0,1]}--144",
+                    "color": "#aad7f2",
+                    "tags": [],
+                    "bom": [],
+                    "plane": {
+                      "origin": [
+                        0,
+                        0,
+                        0
+                      ],
+                      "xDir": [
+                        1,
+                        0,
+                        0
+                      ],
+                      "normal": [
+                        0,
+                        0,
+                        1
+                      ]
+                    },
+                    "metadata": {},
+                    "dimension": "3D",
+                    "boundingBox": {
+                      "min": [
+                        -9.965197726082183e-8,
+                        -2.041928684509668,
+                        -9.598525969822125
+                      ],
+                      "max": [
+                        144.00000007188888,
+                        11.019368688480483,
+                        9.984313471321622e-8
+                      ]
+                    }
+                  },
+                  {
+                    "geometry": "cut-002af6aa-1-extrude-move-rectangle-164-144-72--72-0-{\"origin\":[0,0,0],\"xDir\":[1,0,0],\"normal\":[0,0,1]}--144",
+                    "color": "#aad7f2",
+                    "tags": [],
+                    "bom": [],
+                    "plane": {
+                      "origin": [
+                        0,
+                        0,
+                        0
+                      ],
+                      "xDir": [
+                        1,
+                        0,
+                        0
+                      ],
+                      "normal": [
+                        0,
+                        0,
+                        1
+                      ]
+                    },
+                    "metadata": {},
+                    "dimension": "3D",
+                    "boundingBox": {
+                      "min": [
+                        0.4180008920660196,
+                        -21.83063646662155,
+                        -17.86806675949903
+                      ],
+                      "max": [
+                        143.8996487893736,
+                        10.778082594866786,
+                        -5.79301285656024
+                      ]
+                    }
+                  }
+                ],
+                "plane": {
+                  "origin": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "xDir": [
+                    1,
+                    0,
+                    0
+                  ],
+                  "normal": [
+                    0,
+                    0,
+                    1
+                  ]
+                },
+                "color": "#aad7f2",
+                "tags": [
+                  "halfhull"
+                ],
+                "bom": [],
+                "nonReplicadSerialized": [],
+                "boundingBox": {
+                  "min": [
+                    -9.965197726082183e-8,
+                    -21.83063646662155,
+                    -17.86806675949903
+                  ],
+                  "max": [
+                    144.00000007188888,
+                    11.019368688480483,
+                    9.984313471321622e-8
+                  ]
+                }
+              }
+            ],
+            "plane": {
+              "origin": [
+                0,
+                0,
+                0
+              ],
+              "xDir": [
+                1,
+                0,
+                0
+              ],
+              "normal": [
+                0,
+                0,
+                1
+              ]
+            },
+            "color": "#aad7f2",
+            "tags": [
+              "hullfaces"
+            ],
+            "bom": [],
+            "dimension": "3D",
+            "nonReplicadSerialized": [],
+            "boundingBox": {
+              "min": [
+                -9.965197726082183e-8,
+                -21.83063646662155,
+                -17.86806675949903
+              ],
+              "max": [
+                144.00000007188888,
+                21.83063646662155,
+                9.984313471321622e-8
+              ]
+            }
+          }
         },
         {
           "name": "Shape 2",
-          "ioValue": null
+          "ioValue": {
+            "geometry": "9035db1c-0",
+            "color": "#aad7f2",
+            "tags": [],
+            "bom": [],
+            "plane": {
+              "origin": [
+                0,
+                0,
+                0
+              ],
+              "xDir": [
+                1,
+                0,
+                0
+              ],
+              "normal": [
+                0,
+                0,
+                1
+              ]
+            },
+            "dimension": "3D"
+          }
         }
       ],
       "unionType": "Fusion"
+    },
+    {
+      "atomType": "Code",
+      "x": 0.8466796875,
+      "y": 0.8403247631935048,
+      "uniqueID": "id-24332",
+      "ioValues": [
+        {
+          "name": "shape",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "offset",
+          "ioValue": -1,
+          "currentEquation": "-1"
+        }
+      ],
+      "interpreterVersion": 1,
+      "code": "function run(shape: Assembly, offset: number = 1) {\n  return shape.onLeafs((leaf) => {\n    console.log(leaf)\n    if (leaf.geometry instanceof replicad.Drawing) {\n      throw new Error(\"Drawings not supported for this type of offset\")\n    }\n    try {\n      leaf.geometry = replicad.makeOffset(leaf.geometry, offset)\n    } catch (e: any) {\n      console.warn(\"built-in replicad offset failed \", e)\n\n      const oc = replicad.getOC();\n      const progress = new oc.Message_ProgressRange_1();\n      const offsetBuilder = new oc.BRepOffsetAPI_MakeOffsetShape();\n      offsetBuilder.PerformByJoin(\n        leaf.geometry.wrapped,\n        offset,\n        0.000001,\n        oc.BRepOffset_Mode.BRepOffset_Skin,\n        false,\n        false,\n        oc.GeomAbs_JoinType.GeomAbs_Arc,\n        false,\n        progress\n      );\n\n      const newShape = replicad.cast(replicad.downcast(offsetBuilder.Shape()));\n      offsetBuilder.delete();\n      progress.delete();\n\n      leaf.geometry = newShape;\n    }\n    return leaf;\n    //leaf.geometry = replicad.makeOffset(leaf.geometry, offset);\n  })\n}",
+      "compiledCode": "\"use strict\";\nfunction run(shape, offset = 1) {\n    return shape.onLeafs((leaf) => {\n        console.log(leaf);\n        if (leaf.geometry instanceof replicad.Drawing) {\n            throw new Error(\"Drawings not supported for this type of offset\");\n        }\n        try {\n            leaf.geometry = replicad.makeOffset(leaf.geometry, offset);\n        }\n        catch (e) {\n            console.warn(\"built-in replicad offset failed \", e);\n            const oc = replicad.getOC();\n            const progress = new oc.Message_ProgressRange_1();\n            const offsetBuilder = new oc.BRepOffsetAPI_MakeOffsetShape();\n            offsetBuilder.PerformByJoin(leaf.geometry.wrapped, offset, 0.000001, oc.BRepOffset_Mode.BRepOffset_Skin, false, false, oc.GeomAbs_JoinType.GeomAbs_Arc, false, progress);\n            const newShape = replicad.cast(replicad.downcast(offsetBuilder.Shape()));\n            offsetBuilder.delete();\n            progress.delete();\n            leaf.geometry = newShape;\n        }\n        return leaf;\n        //leaf.geometry = replicad.makeOffset(leaf.geometry, offset);\n    });\n}\n"
     },
     {
       "atomType": "GitHubMolecule",
@@ -992,25 +1313,6 @@
       "lastReloadedFromGithubAt": 1784186283627
     },
     {
-      "atomType": "Code",
-      "x": 0.7965494791666666,
-      "y": 0.753721244925575,
-      "uniqueID": "id-24332",
-      "ioValues": [
-        {
-          "name": "shape",
-          "ioValue": "__GEOMETRY_INPUT__"
-        },
-        {
-          "name": "offset",
-          "ioValue": 1
-        }
-      ],
-      "interpreterVersion": 1,
-      "code": "function run(shape: Assembly, offset: number = 1) {\n  return shape.onLeafs((leaf) => {\n    console.log(leaf)\n    if (leaf.geometry instanceof replicad.Drawing) {\n      throw new Error(\"Drawings not supported for this type of offset\")\n    }\n    try {\n      leaf.geometry = replicad.makeOffset(leaf.geometry, offset)\n    } catch (e: any) {\n      console.warn(\"built-in replicad offset failed \", e)\n\n      const oc = replicad.getOC();\n      const obuilder = new oc.Message_ProgressRange_1();\n      const progress = new oc.Message_ProgressRange_1();\n      const offsetBuilder = new oc.BRepOffsetAPI_MakeOffsetShape();\n      offsetBuilder.PerformBySimple(leaf.geometry.wrapped, offset)\n      leaf.geometry = replicad.cast(replicad.downcast(offsetBuilder.Shape()))\n    }\n    return leaf;\n    //leaf.geometry = replicad.makeOffset(leaf.geometry, offset);\n  })\n}",
-      "compiledCode": "\"use strict\";\nfunction run(shape, offset = 1) {\n    return shape.onLeafs((leaf) => {\n        console.log(leaf);\n        if (leaf.geometry instanceof replicad.Drawing) {\n            throw new Error(\"Drawings not supported for this type of offset\");\n        }\n        try {\n            leaf.geometry = replicad.makeOffset(leaf.geometry, offset);\n        }\n        catch (e) {\n            console.warn(\"built-in replicad offset failed \", e);\n            const oc = replicad.getOC();\n            const obuilder = new oc.Message_ProgressRange_1();\n            const progress = new oc.Message_ProgressRange_1();\n            const offsetBuilder = new oc.BRepOffsetAPI_MakeOffsetShape();\n            offsetBuilder.PerformBySimple(leaf.geometry.wrapped, offset);\n            leaf.geometry = replicad.cast(replicad.downcast(offsetBuilder.Shape()));\n        }\n        return leaf;\n        //leaf.geometry = replicad.makeOffset(leaf.geometry, offset);\n    });\n}\n"
-    },
-    {
       "atomType": "GitHubMolecule",
       "x": 0.068359375,
       "y": 0.3125,
@@ -1396,6 +1698,10 @@
                 {
                   "name": "target",
                   "ioValue": 144
+                },
+                {
+                  "name": "actual",
+                  "ioValue": 1025.7724328554402
                 }
               ],
               "currentEquation": "target / actual"
@@ -1556,6 +1862,12 @@
               "y": 0.6,
               "uniqueID": "id-24374",
               "name": "Scale",
+              "ioValues": [
+                {
+                  "name": "Scale Factor",
+                  "ioValue": 0.14038201397082542
+                }
+              ],
               "topLevel": false,
               "allAtoms": [
                 {
@@ -1897,7 +2209,7 @@
     {
       "ap2Name": "FaceAssembly",
       "ap1ID": "id-24102",
-      "ap2ID": "id-24310"
+      "ap2ID": "id-24323"
     },
     {
       "ap2Name": "x",
@@ -1918,6 +2230,11 @@
       "ap2Name": "Wires",
       "ap1ID": "id-24086",
       "ap2ID": "id-22244"
+    },
+    {
+      "ap2Name": "shape",
+      "ap1ID": "id-24323",
+      "ap2ID": "id-24332"
     },
     {
       "ap2Name": "geometry",
