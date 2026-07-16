@@ -356,8 +356,8 @@
     },
     {
       "atomType": "Fusion",
-      "x": 0.591796875,
-      "y": 0.7063599458728012,
+      "x": 0.6376953125,
+      "y": 0.5723951285520974,
       "uniqueID": "id-24102",
       "ioValues": [
         {
@@ -675,8 +675,8 @@
         }
       ],
       "interpreterVersion": 1,
-      "code": "function run(shape: Assembly, offset: number = 1) {\n  const faceList: any[] = []\n  shape.onLeafs((leaf) => {\n    if (leaf.geometry instanceof replicad.Drawing) {\n      throw Error(\"input cannot be drawing\")\n    }\n    faceList.push(...leaf.geometry.faces)\n    return leaf\n  });\n\n  let comp = replicad.weldShellsAndFaces(faceList, true)\n  const shells = Array.from(replicad.iterTopo(comp.wrapped, \"shell\"))\n  const basisShape = replicad.makeSolid([replicad.cast(shells[0])])\n\n  const oc = replicad.getOC();\n  const progress = new oc.Message_ProgressRange_1();\n  const offsetBuilder = new oc.BRepOffsetAPI_MakeOffsetShape();\n  offsetBuilder.PerformByJoin(\n    basisShape.wrapped,\n    offset,\n    0.000001,\n    oc.BRepOffset_Mode.BRepOffset_Skin,\n    false,\n    false,\n    oc.GeomAbs_JoinType.GeomAbs_Arc,\n    false,\n    progress\n  );\n\n  const newShape = replicad.cast(replicad.downcast(offsetBuilder.Shape()));\n  offsetBuilder.delete();\n  progress.delete();\n\n  leaf.geometry = newShape;\n}",
-      "compiledCode": "\"use strict\";\nfunction run(shape, offset = 1) {\n    const faceList = [];\n    shape.onLeafs((leaf) => {\n        if (leaf.geometry instanceof replicad.Drawing) {\n            throw Error(\"input cannot be drawing\");\n        }\n        faceList.push(...leaf.geometry.faces);\n        return leaf;\n    });\n    let comp = replicad.weldShellsAndFaces(faceList, true);\n    const shells = Array.from(replicad.iterTopo(comp.wrapped, \"shell\"));\n    const basisShape = replicad.makeSolid([replicad.cast(shells[0])]);\n    const oc = replicad.getOC();\n    const progress = new oc.Message_ProgressRange_1();\n    const offsetBuilder = new oc.BRepOffsetAPI_MakeOffsetShape();\n    offsetBuilder.PerformByJoin(basisShape.wrapped, offset, 0.000001, oc.BRepOffset_Mode.BRepOffset_Skin, false, false, oc.GeomAbs_JoinType.GeomAbs_Arc, false, progress);\n    const newShape = replicad.cast(replicad.downcast(offsetBuilder.Shape()));\n    offsetBuilder.delete();\n    progress.delete();\n    leaf.geometry = newShape;\n}\n"
+      "code": "function run(shape: Assembly, offset: number = 1) {\n  const faceList: any[] = []\n  shape.onLeafs((leaf) => {\n    if (leaf.geometry instanceof replicad.Drawing) {\n      throw Error(\"input cannot be drawing\")\n    }\n    faceList.push(...leaf.geometry.faces)\n    return leaf\n  });\n\n  let comp = replicad.weldShellsAndFaces(faceList, true)\n  const shells = Array.from(replicad.iterTopo(comp.wrapped, \"shell\"))\n  const basisShape = replicad.makeSolid([replicad.cast(shells[0])])\n  return basisShape\n\n  const oc = replicad.getOC();\n  const progress = new oc.Message_ProgressRange_1();\n  const offsetBuilder = new oc.BRepOffsetAPI_MakeOffsetShape();\n  offsetBuilder.PerformByJoin(\n    basisShape.wrapped,\n    offset,\n    0.000001,\n    oc.BRepOffset_Mode.BRepOffset_Skin,\n    false,\n    false,\n    oc.GeomAbs_JoinType.GeomAbs_Arc,\n    false,\n    progress\n  );\n\n  const newShape = replicad.cast(replicad.downcast(offsetBuilder.Shape()));\n  offsetBuilder.delete();\n  progress.delete();\n\n  return newShape;\n}",
+      "compiledCode": "\"use strict\";\nfunction run(shape, offset = 1) {\n    const faceList = [];\n    shape.onLeafs((leaf) => {\n        if (leaf.geometry instanceof replicad.Drawing) {\n            throw Error(\"input cannot be drawing\");\n        }\n        faceList.push(...leaf.geometry.faces);\n        return leaf;\n    });\n    let comp = replicad.weldShellsAndFaces(faceList, true);\n    const shells = Array.from(replicad.iterTopo(comp.wrapped, \"shell\"));\n    const basisShape = replicad.makeSolid([replicad.cast(shells[0])]);\n    return basisShape;\n    const oc = replicad.getOC();\n    const progress = new oc.Message_ProgressRange_1();\n    const offsetBuilder = new oc.BRepOffsetAPI_MakeOffsetShape();\n    offsetBuilder.PerformByJoin(basisShape.wrapped, offset, 0.000001, oc.BRepOffset_Mode.BRepOffset_Skin, false, false, oc.GeomAbs_JoinType.GeomAbs_Arc, false, progress);\n    const newShape = replicad.cast(replicad.downcast(offsetBuilder.Shape()));\n    offsetBuilder.delete();\n    progress.delete();\n    return newShape;\n}\n"
     },
     {
       "atomType": "GitHubMolecule",
@@ -2163,6 +2163,22 @@
       "unitsKey": "Inches",
       "fileTypeVersion": 1,
       "lastReloadedFromGithubAt": 1784186359314
+    },
+    {
+      "atomType": "Assembly",
+      "x": 0.5804036458333334,
+      "y": 0.8538565629228687,
+      "uniqueID": "id-24616",
+      "ioValues": [
+        {
+          "name": "Shape 1",
+          "ioValue": null
+        },
+        {
+          "name": "Shape 2",
+          "ioValue": null
+        }
+      ]
     }
   ],
   "allConnectors": [
@@ -2212,11 +2228,6 @@
       "ap2ID": "id-24323"
     },
     {
-      "ap2Name": "shape",
-      "ap1ID": "id-24102",
-      "ap2ID": "id-24332"
-    },
-    {
       "ap2Name": "number or geometry",
       "ap1ID": "id-24102",
       "ap2ID": "id-21583"
@@ -2230,6 +2241,11 @@
       "ap2Name": "Shape 2",
       "ap1ID": "id-22244",
       "ap2ID": "id-24102"
+    },
+    {
+      "ap2Name": "Shape 1",
+      "ap1ID": "id-22244",
+      "ap2ID": "id-24616"
     },
     {
       "ap2Name": "geometry",
@@ -2270,6 +2286,16 @@
       "ap2Name": "Shape 1",
       "ap1ID": "id-24380",
       "ap2ID": "id-24102"
+    },
+    {
+      "ap2Name": "Shape 2",
+      "ap1ID": "id-24380",
+      "ap2ID": "id-24616"
+    },
+    {
+      "ap2Name": "shape",
+      "ap1ID": "id-24616",
+      "ap2ID": "id-24332"
     }
   ],
   "unitsKey": "Inches",
